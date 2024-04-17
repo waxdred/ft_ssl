@@ -16,12 +16,23 @@ MK = Makefile
 
 DIR_HDS				=	includes
 
-RELATIVE_HDS		=	ft_ssl.h 
+RELATIVE_HDS		=	ft_ssl.h \
+									flag.h		\
+									md5.h		\
+									utils.h		
 
 # Code
 
 DIR_GLOBAL						=	srcs
-SRC_GLOBAL						=	ft_ssl.c   \
+SRC_GLOBAL						=	ft_ssl.c   	\
+												md5.c 			\
+												utils.c			\
+												write.c			\
+												parse.c			\
+												ToolsMd5.c	\
+												tableMd5.c	\
+												ft_ssl.c		\
+												digest_md5.c\
 												main.c
 
 ################################################################################
@@ -30,8 +41,7 @@ SRC_GLOBAL						=	ft_ssl.c   \
 
 NAME	=	ft_ssl
 CC		=	cc
-CFLAGS	=	-Wall -Werror -Wextra -O3 -g3
-# -g3 -ggdb -fsanitize=address
+CFLAGS	=	-Wall -Werror -Wextra -O3 -g3 #-ggdb -fsanitize=address
 
 # Sources
 
