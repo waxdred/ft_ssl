@@ -13,5 +13,7 @@ void ft_bzero(void *s, size_t n);
 int ft_strcmp(const char *s1, const char *s2);
 char *ft_strdup(const char *s);
 int OpenFile(char *filename);
+char *ReadFile(int fd);
+char *ft_strjoin(char const *s1, char const *s2);
 
 #endif

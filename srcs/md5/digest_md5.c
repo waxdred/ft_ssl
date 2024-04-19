@@ -1,4 +1,5 @@
-#include "../includes/md5.h"
+#include "../../includes/md5.h"
+#include <stdio.h>
 
 t_digest *Get_digest(t_digest *d) {
   static t_digest *digest;
@@ -7,26 +8,24 @@ t_digest *Get_digest(t_digest *d) {
   return digest;
 }
 
-t_digest *Init_digest(FlagType flag) {
+t_digest *Init_digest() {
   t_digest *d = malloc(sizeof(t_digest));
   if (d == NULL)
     return NULL;
   ft_bzero(d, sizeof(t_digest));
-  if (flag & FLAG_S || flag & FLAG_IS_FILE)
-    d->Write = &WriteFd;
-  else
-    d->Write = &Write;
-
   d->Reset = &Reset_digest;
   Get_digest(d);
   d->Reset();
   d->Get_K = &get_K;
   d->Get_R = &get_R;
+  d->Print = &PrintSum;
+  d->Write = &Write;
   return d;
 }
 
 t_digest *Reset_digest() {
   t_digest *d = Get_digest(NULL);
+  ft_bzero(d->digest, DIGESTSIZE);
   d->s[0] = INIT0;
   d->s[1] = INIT1;
   d->s[2] = INIT2;
@@ -50,9 +49,7 @@ void digest(size_t new_length, uint8_t *padded_message) {
     for (int j = 0; j < DIGESTSIZE; j++) {
       w[j] = *(uint32_t *)(padded_message + i + j * 4);
     }
-
     uint32_t a = dig->s[0], b = dig->s[1], c = dig->s[2], d = dig->s[3];
-
     for (int i = 0; i < BlockSize; i++) {
       uint32_t f, g;
       if (i <= 15) {

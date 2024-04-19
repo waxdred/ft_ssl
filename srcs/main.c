@@ -1,22 +1,22 @@
 #include "../includes/ft_ssl.h"
 
 int main(int argc, char **argv) {
-  t_md5 *md5;
-  t_flag flag;
-  if (argc < 2)
-    return (1);
+  t_ssl *ssl = New_ssl();
 
-  if (parse(&flag, argc, argv)) {
-    printf("ft_ssl: Error: '%s' is an invalid command.\n\n", argv[1]);
+  t_flag flag = {0};
+  if (argc < 2) {
+    printf("usage: ft_ssl command [flags] [file/string]");
     return (1);
   }
 
-  md5 = ft_NewMD5(flag);
-  if (md5 == NULL)
+  if (parse(&flag, argc, argv)) {
     return (1);
-  printf("flag = %d\n", md5->flag.flag);
-  md5->Write(flag.input);
-  md5->PrintSum();
-  md5->Free();
+  }
+
+  if (Init_ssl(flag)) {
+    return (1);
+  }
+
+  ssl->Handler();
   return (0);
 }

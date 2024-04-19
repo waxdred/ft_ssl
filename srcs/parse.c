@@ -23,38 +23,51 @@ static void ft_getopt(char *av, char *flag, int *opt) {
 int parse(t_flag *flag, int ac, char **av) {
   int opt;
   int i;
+  int fd;
 
   opt = 0;
   i = 1;
+  // FIRST get stdin
+  if ((fd = OpenFile("/dev/stdin")) != -1) {
+    char *c = ReadFile(STDIN_FILENO);
+    if (c != NULL) {
+      AddInput(&flag->head, c, TYPE_STDIN, "");
+    }
+  }
+  if (ft_strcmp(av[i], "md5") == 0) {
+    flag->cmd = MD5;
+  } else if (ft_strcmp(av[i], "sha256") == 0) {
+    flag->cmd = SHA256;
+  } else if (ft_strcmp(av[i], "-h") == 0) {
+    PrintHelp();
+    return EXIT_FAILURE;
+  } else {
+    PrintError(TYPE_ERR_CMD, av[i]);
+    return EXIT_FAILURE;
+  }
+  i++;
   while (i < ac) {
     ft_getopt(av[i], "hpqrs?", &opt);
-    if (opt == -1 && flag->cmd == 0) {
-      if (ft_strcmp(av[i], "md5") == 0) {
-        flag->cmd = MD5;
-      } else if (ft_strcmp(av[i], "sha256") == 0) {
-        flag->cmd = SHA256;
-      } else {
-        return EXIT_FAILURE;
-      }
-    } else if (opt == -1 && !flag->input) {
+    if (opt == -1) {
       int fd;
       if ((fd = OpenFile(av[i])) != -1) {
-        printf("add ->fd = %d\n", fd);
-        flag->fd = fd;
-        flag->flag |= FLAG_IS_FILE;
+        char *c = ReadFile(fd);
+        if (c != NULL) {
+          AddInput(&flag->head, c, TYPE_FILE, av[i]);
+        }
       } else {
-        flag->input = ft_strdup(av[i]);
+        AddInput(&flag->head, "", TYPE_ERR_FILE, av[i]);
       }
     } else if (opt == -1) {
       return EXIT_FAILURE;
     }
     switch (opt) {
     case 'h':
-      printf("Usage: ft_ssl command [command opts] [command args]\n");
+      PrintHelp();
       break;
     case '?':
-      printf("ft_ssl: Error: '%c' is an invalid command.\n\n", opt);
-      break;
+      PrintError(TYPE_ERR_USAGE, av[i]);
+      return EXIT_FAILURE;
     case 'p':
       flag->flag |= FLAG_P;
       break;
@@ -65,22 +78,14 @@ int parse(t_flag *flag, int ac, char **av) {
       flag->flag |= FLAG_R;
       break;
     case 's':
+      // Add string to input
+      if (i + 1 <= ac)
+        AddInput(&flag->head, ft_strdup(av[i + 1]), TYPE_STRING, av[i]);
       flag->flag |= FLAG_S;
+      ++i;
       break;
     }
     ++i;
   }
-  if (flag->cmd == 0)
-    // print no cmd
-    return EXIT_FAILURE;
-  if (flag->fd != 0 && flag->flag & FLAG_IS_FILE) {
-    printf("succes\n");
-    return EXIT_SUCCESS;
-  }
-  if (!(flag->flag & FLAG_S) && !flag->input) {
-    // print no input
-    return EXIT_FAILURE;
-  }
-  printf("flag = %d\n", flag->flag);
   return EXIT_SUCCESS;
 }
