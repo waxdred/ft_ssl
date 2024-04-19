@@ -19,15 +19,18 @@ SRCS = $(SRCS_DIR)error.c \
        $(SRCS_DIR)md5/write.c \
        $(SRCS_DIR)ft_ssl.c \
        $(SRCS_DIR)main.c
+OBJS_DIR = objs
 
-OBJS = $(subst $(SRCS_DIR),,$(SRCS:.c=.o))
-NAME = ft_nm
+OBJS = $(addprefix $(OBJS_DIR)/,$(subst $(SRCS_DIR),,$(SRCS:.c=.o)))
+NAME = ft_ssl
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 RM = rm -rf
 
-%.o : %.c $(HEADERS)
-	@${CC} ${CFLAGS} -c $< -o $@
+
+$(OBJS_DIR)/%.o : $(SRCS_DIR)%.c $(HEADERS)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all:	${NAME}
 
