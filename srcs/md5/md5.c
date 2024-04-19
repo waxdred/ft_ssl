@@ -1,11 +1,10 @@
 #include "../../includes/md5.h"
-#include <unistd.h>
 
 t_md5 *Get_md5(t_md5 *md5) {
-  static t_md5 *digest;
+  static t_md5 *m;
   if (md5 != NULL)
-    digest = md5;
-  return digest;
+    m = md5;
+  return m;
 }
 
 void FreeMD5() {
@@ -78,16 +77,16 @@ t_md5 *ft_NewMD5(t_flag flag) {
   if (md5 == NULL)
     return NULL;
   ft_bzero(md5, sizeof(t_md5));
-  md5->digest = Init_digest();
+  md5->digest = Init_digest(flag.cmd);
   if (md5->digest == NULL) {
     free(md5);
     return NULL;
   }
-  md5->Stop = 1;
+  md5->digest->SetGet_RK(&get_md5_R, &get_md5_K);
   md5->flag = flag;
-  md5->LeftRotate = &leftrotate;
   md5->Free = &FreeMD5;
   md5->PrintSum = &PrintAllSum;
+  md5->digest->Write = &Write;
   Get_md5(md5);
   return md5;
 }

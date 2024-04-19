@@ -13,5 +13,5 @@ void Write(char *p) {
   memcpy(padded_message, p, dig->len);
   padded_message[dig->len] = 0x80;
   padded_message[new_length - 8] = dig->len * 8;
-  digest(new_length, padded_message);
+  dig->digest(new_length, padded_message);
 }
