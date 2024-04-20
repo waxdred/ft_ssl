@@ -22,5 +22,6 @@ int main(int argc, char **argv) {
   }
   ssl->Handler();
   ssl->Free();
+  FreeFlag(&flag);
   return (0);
 }

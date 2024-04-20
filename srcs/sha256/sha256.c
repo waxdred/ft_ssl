@@ -9,13 +9,6 @@ t_sha256 *Get_sha256(t_sha256 *sha256) {
 
 void FreeSha256() {
   t_sha256 *sha256 = Get_sha256(NULL);
-  while (sha256->flag.head) {
-    t_input *tmp = sha256->flag.head;
-    sha256->flag.head = sha256->flag.head->next;
-    free(tmp->input);
-    free(tmp->filename);
-    free(tmp);
-  }
   free(sha256->digest);
   free(sha256);
 }
@@ -39,6 +32,11 @@ t_sha256 *ft_NewSha256(t_flag flag) {
     exit(1);
   }
   ft_bzero(sha256, sizeof(t_sha256));
+  sha256->digest = Init_digest(flag.cmd);
+  if (sha256->digest == NULL) {
+    free(sha256);
+    return NULL;
+  }
   sha256->digest->SetGet_RK(NULL, &get_sha256_K);
   // TODO add init digest
   Get_sha256(sha256);

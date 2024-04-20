@@ -9,13 +9,6 @@ t_md5 *Get_md5(t_md5 *md5) {
 
 void FreeMD5() {
   t_md5 *md5 = Get_md5(NULL);
-  while (md5->flag.head) {
-    t_input *tmp = md5->flag.head;
-    md5->flag.head = md5->flag.head->next;
-    free(tmp->input);
-    free(tmp->filename);
-    free(tmp);
-  }
   free(md5->digest);
   free(md5);
 }

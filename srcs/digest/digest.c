@@ -9,8 +9,10 @@ t_digest *Get_digest(t_digest *d) {
 
 void SetGet_RK(uint32_t *(*Get_R)(), uint32_t *(*Get_K)()) {
   t_digest *d = Get_digest(NULL);
-  d->Get_K = Get_K;
-  d->Get_R = Get_R;
+  if (Get_R != NULL)
+    d->Get_R = Get_R;
+  if (Get_K != NULL)
+    d->Get_K = Get_K;
 }
 
 t_digest *Init_digest(FlagCmd cmd) {

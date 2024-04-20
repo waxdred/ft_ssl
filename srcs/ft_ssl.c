@@ -9,7 +9,6 @@ t_ssl *Get_ssl(t_ssl *s) {
 
 int Handler_ssl() {
   t_ssl *ssl = Get_ssl(NULL);
-  printf("Done -------------\n");
   switch (ssl->cmd) {
   case MD5:
     return ssl->Run();
@@ -37,9 +36,8 @@ void Free_ssl() {
     ssl->md5->Free();
   }
   if (ssl->sha256 != NULL) {
-    // Need to implement Free_sha256
+    ssl->sha256->Free();
   }
-  /// Need to implement Free_sha256
   free(ssl);
 }
 
@@ -72,9 +70,6 @@ int Init_ssl(t_flag flag) {
     ssl->sha256->digest->Write("test");
     ssl->sha256->digest->Print();
     break;
-
-    // TODO implement
-    // ssl->sha256 = New_sha256(flag);
     break;
   default:
     return 1;

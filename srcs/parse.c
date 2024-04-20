@@ -20,6 +20,17 @@ static void ft_getopt(char *av, char *flag, int *opt) {
   }
 }
 
+void FreeFlag(t_flag *flag) {
+  t_input *tmp = flag->head;
+  while (tmp) {
+    t_input *next = tmp->next;
+    free(tmp->input);
+    free(tmp->filename);
+    free(tmp);
+    tmp = next;
+  }
+}
+
 int parse(t_flag *flag, int ac, char **av) {
   int opt;
   int i;

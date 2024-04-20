@@ -30,7 +30,7 @@ OBJS_DIR = objs
 OBJS = $(addprefix $(OBJS_DIR)/,$(subst $(SRCS_DIR),,$(SRCS:.c=.o)))
 NAME = ft_ssl
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3# -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 RM = rm -rf
 
 
