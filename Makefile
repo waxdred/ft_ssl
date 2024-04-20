@@ -22,7 +22,6 @@ SRCS = $(SRCS_DIR)error.c \
        $(SRCS_DIR)md5/md5.c  \
        $(SRCS_DIR)md5/output.c \
        $(SRCS_DIR)md5/table.c \
-       $(SRCS_DIR)md5/write.c \
        $(SRCS_DIR)ft_ssl.c \
        $(SRCS_DIR)main.c
 OBJS_DIR = objs
@@ -30,7 +29,7 @@ OBJS_DIR = objs
 OBJS = $(addprefix $(OBJS_DIR)/,$(subst $(SRCS_DIR),,$(SRCS:.c=.o)))
 NAME = ft_ssl
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
 RM = rm -rf
 
 

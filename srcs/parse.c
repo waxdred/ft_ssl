@@ -9,7 +9,6 @@ static void ft_getopt(char *av, char *flag, int *opt) {
     return;
   } else if (av[0] == '-' && av[2] != '\0') {
     *opt = -2;
-    // check if cmd
     return;
   }
   *opt = av[1];
@@ -35,6 +34,7 @@ int parse(t_flag *flag, int ac, char **av) {
   int opt;
   int i;
   int fd;
+  int done = 0;
 
   opt = 0;
   i = 1;
@@ -53,11 +53,23 @@ int parse(t_flag *flag, int ac, char **av) {
     PrintHelp();
     return EXIT_FAILURE;
   } else {
-    PrintError(TYPE_ERR_CMD, av[i]);
+    PrintError(TYPE_ERR_CMD, av[i], flag->cmd);
     return EXIT_FAILURE;
   }
   i++;
   while (i < ac) {
+    if (done == 1) {
+      if ((fd = OpenFile(av[i])) != -1) {
+        char *c = ReadFile(fd);
+        if (c != NULL) {
+          AddInput(&flag->head, c, TYPE_FILE, av[i]);
+        }
+      } else {
+        AddInput(&flag->head, ft_strdup(""), TYPE_ERR_FILE, av[i]);
+      }
+      i++;
+      continue;
+    }
     ft_getopt(av[i], "hpqrs?", &opt);
     if (opt == -1) {
       int fd;
@@ -66,8 +78,10 @@ int parse(t_flag *flag, int ac, char **av) {
         if (c != NULL) {
           AddInput(&flag->head, c, TYPE_FILE, av[i]);
         }
+        done = 1;
       } else {
         AddInput(&flag->head, "", TYPE_ERR_FILE, av[i]);
+        done = 1;
       }
     } else if (opt == -1) {
       return EXIT_FAILURE;
@@ -77,7 +91,7 @@ int parse(t_flag *flag, int ac, char **av) {
       PrintHelp();
       break;
     case '?':
-      PrintError(TYPE_ERR_USAGE, av[i]);
+      PrintError(TYPE_ERR_USAGE, av[i], flag->cmd);
       return EXIT_FAILURE;
     case 'p':
       flag->flag |= FLAG_P;
@@ -93,6 +107,7 @@ int parse(t_flag *flag, int ac, char **av) {
       if (i + 1 <= ac)
         AddInput(&flag->head, ft_strdup(av[i + 1]), TYPE_STRING, av[i]);
       flag->flag |= FLAG_S;
+      done = 1;
       ++i;
       break;
     }

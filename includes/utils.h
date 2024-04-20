@@ -15,5 +15,6 @@ char *ft_strdup(const char *s);
 int OpenFile(char *filename);
 char *ReadFile(int fd);
 char *ft_strjoin(char const *s1, char const *s2);
+char *ReadStdin();
 
 #endif

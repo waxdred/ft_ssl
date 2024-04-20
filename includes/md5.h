@@ -22,7 +22,6 @@ typedef struct s_md5 {
 
 int RunMD5();
 void PrintSum();
-char *ReadStdin();
 void Write(char *p);
 t_digest *Init_digest();
 t_digest *Get_digest(t_digest *d);

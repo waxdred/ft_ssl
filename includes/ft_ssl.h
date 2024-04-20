@@ -16,7 +16,6 @@ typedef struct s_ssl {
   t_flag flag;
   void (*Free)();
   int (*Run)();
-  int (*Handler)();
   int (*Init_ssl)(t_flag flag);
   FlagCmd cmd;
 } t_ssl;

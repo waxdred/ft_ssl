@@ -9,6 +9,46 @@ int ft_strlen(const char *str) {
   return len;
 }
 
+char *ReadStdin() {
+  char buf[512];
+  char *p = NULL;
+  char *tmp = NULL;
+  int fd = 0, ret = 0;
+  fd_set readfds;
+  int len = 0;
+  struct timeval timeout;
+
+  if ((fd = dup(STDIN_FILENO)) < 0)
+    return NULL;
+
+  while (1) {
+    ft_bzero(buf, 512);
+    FD_ZERO(&readfds);
+    FD_SET(fd, &readfds);
+    ret = select(fd + 1, &readfds, NULL, NULL, &timeout);
+    if (ret == -1)
+      break;
+    else if (ret == 0)
+      continue; /* a timeout occured */
+    else {
+      if (FD_ISSET(fd, &readfds)) {
+        if ((ret = read(STDIN_FILENO, buf, 512)) > 0) {
+          buf[ret - 1] = 0;
+          tmp = p;
+          p = ft_strjoin(p, buf);
+          if (tmp)
+            free(tmp);
+          len += ret;
+          len += ret;
+        } else {
+          return p;
+        }
+      }
+    }
+  }
+  return p;
+}
+
 void *ft_memcpy(void *dst, const void *src, size_t n) {
   unsigned char *pdst;
   unsigned char *psrc;

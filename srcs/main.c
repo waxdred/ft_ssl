@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
   if (Init_ssl(flag)) {
     return (1);
   }
-  ssl->Handler();
+  ssl->Run();
   ssl->Free();
   FreeFlag(&flag);
   return (0);

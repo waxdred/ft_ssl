@@ -7,17 +7,6 @@ t_ssl *Get_ssl(t_ssl *s) {
   return ssl;
 }
 
-int Handler_ssl() {
-  t_ssl *ssl = Get_ssl(NULL);
-  switch (ssl->cmd) {
-  case MD5:
-    return ssl->Run();
-  case SHA256:
-    break;
-  }
-  return 0;
-}
-
 t_ssl *New_ssl() {
   t_ssl *ssl = (t_ssl *)malloc(sizeof(t_ssl));
   if (!ssl) {
@@ -25,7 +14,6 @@ t_ssl *New_ssl() {
     exit(1);
   }
   ft_bzero(ssl, sizeof(t_ssl));
-  ssl->Handler = &Handler_ssl;
   Get_ssl(ssl);
   return ssl;
 }
@@ -65,10 +53,7 @@ int Init_ssl(t_flag flag) {
       printf("Error: malloc failed\n");
       return (1);
     }
-    ssl->sha256->digest->Write = &sha256_update;
-    ssl->sha256->digest->Print = &PrintSha256;
-    ssl->sha256->digest->Write("test");
-    ssl->sha256->digest->Print();
+    ssl->Run = &Runsha256;
     break;
     break;
   default:

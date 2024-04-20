@@ -41,9 +41,9 @@ typedef struct s_flag {
 } t_flag;
 int parse(t_flag *flag, int ac, char **av);
 t_input *AddInput(t_input **input, char *str, TypeInput type, char *filename);
-void PrintError(TypeInput type, const char *name);
 void PrintHelp();
 void PrintMd5(int reverse, TypeInput t, const char *str, void (*Print)());
+void PrintError(TypeInput type, const char *name, FlagCmd cmd);
 void FreeFlag(t_flag *flag);
 
 #endif
