@@ -25,6 +25,6 @@ t_sha256 *ft_NewSha256(t_flag flag);
 t_sha256 *Get_sha256(t_sha256 *sha256);
 uint32_t *get_sha256_K();
 int Runsha256();
-void PrintSha256(int reverse, TypeInput t, const char *str, void (*Print)());
+void Print_Sha256(int reverse, TypeInput t, const char *str, void (*Print)());
 
 #endif

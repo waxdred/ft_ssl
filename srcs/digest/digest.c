@@ -36,6 +36,8 @@ t_digest *Init_digest(FlagCmd cmd) {
     break;
   case SHA256:
     d->Reset = &Reset_digest_sha256;
+    d->Print = &PrintSha256;
+    d->Reset = &Reset_digest_sha256;
     // Add other digest
     break;
   }

@@ -32,5 +32,7 @@ t_md5 *ft_NewMD5(t_flag flag);
 void ft_blockGeneric(t_digest *dig, const char *p);
 uint32_t *get_md5_K();
 uint32_t *get_md5_R();
+void PrintHelp();
+void PrintMd5(int reverse, TypeInput t, const char *str, void (*Print)());
 
 #endif

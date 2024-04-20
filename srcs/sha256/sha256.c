@@ -33,27 +33,27 @@ static void PrintAllSum() {
           char *tmp = ft_strdup(input);
           tmp[len - 1] = 0;
           sha256->digest->Write(tmp);
-          PrintSha256(sha256->flag.flag, tmp_input->type, tmp,
-                      sha256->digest->Print);
+          Print_Sha256(sha256->flag.flag, tmp_input->type, tmp,
+                       sha256->digest->Print);
           free(tmp);
         } else {
           sha256->digest->Write(input);
-          PrintSha256(sha256->flag.flag, tmp_input->type, input,
-                      sha256->digest->Print);
+          Print_Sha256(sha256->flag.flag, tmp_input->type, input,
+                       sha256->digest->Print);
         }
       } else {
         sha256->digest->Write(input);
-        PrintSha256(sha256->flag.flag, tmp_input->type, "stdin",
-                    sha256->digest->Print);
+        Print_Sha256(sha256->flag.flag, tmp_input->type, "stdin",
+                     sha256->digest->Print);
       }
     } else if (tmp_input->type == TYPE_STRING) {
       sha256->digest->Write(input);
-      PrintSha256(sha256->flag.flag, tmp_input->type, input,
-                  sha256->digest->Print);
+      Print_Sha256(sha256->flag.flag, tmp_input->type, input,
+                   sha256->digest->Print);
     } else if (tmp_input->type == TYPE_FILE) {
       sha256->digest->Write(input);
-      PrintSha256(sha256->flag.flag, tmp_input->type, tmp_input->filename,
-                  sha256->digest->Print);
+      Print_Sha256(sha256->flag.flag, tmp_input->type, tmp_input->filename,
+                   sha256->digest->Print);
     }
     tmp_input = tmp_input->next;
   }

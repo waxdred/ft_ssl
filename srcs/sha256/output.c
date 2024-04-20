@@ -1,6 +1,6 @@
-#include "../../includes/flag.h"
+#include "../../includes/sha256.h"
 
-void PrintSha256(int reverse, TypeInput t, const char *str, void (*Print)()) {
+void Print_Sha256(int reverse, TypeInput t, const char *str, void (*Print)()) {
   int r = !(reverse & FLAG_R);
   int p = !(reverse & FLAG_P);
   int q = !(reverse & FLAG_Q);

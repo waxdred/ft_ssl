@@ -1,4 +1,4 @@
-#include "../../includes/flag.h"
+#include "../../includes/md5.h"
 
 void PrintHelp() {
   printf("usage: ft_ssl command [flags] [file/string]\n");

@@ -17,6 +17,7 @@ SRCS = $(SRCS_DIR)error.c \
        $(SRCS_DIR)digest/digest_sha256.c \
        $(SRCS_DIR)digest/tool.c \
        $(SRCS_DIR)sha256/sha256.c \
+       $(SRCS_DIR)sha256/output.c \
        $(SRCS_DIR)sha256/table.c \
        $(SRCS_DIR)md5/input.c \
        $(SRCS_DIR)md5/md5.c  \
