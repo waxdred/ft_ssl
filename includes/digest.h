@@ -71,7 +71,6 @@ t_digest *Reset_digest_md5();
 void md5_digest(size_t new_length, uint8_t *padded_message);
 void Print_Digest(int reverse, TypeInput t, const char *str, void());
 t_digest *Init_digest(FlagCmd cmd);
-// void PrintSha256();
 void Write_md5(char *p);
 void Print_Digest(int reverse, TypeInput t, const char *str, void (*Print)());
 

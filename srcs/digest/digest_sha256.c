@@ -107,5 +107,4 @@ void PrintSha256() {
   sha256_final();
   for (int i = 0; i < 32; i++)
     printf("%02x", dig->hash[i]);
-  printf("\n");
 }
