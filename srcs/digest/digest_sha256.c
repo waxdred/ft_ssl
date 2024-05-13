@@ -2,6 +2,7 @@
 
 void sha256_transform(const uint8_t data[]) {
   t_digest *dig = Get_digest(NULL);
+  dig->Reset();
   uint32_t a, b, c, d, e, f, g, h, i, j, t1, t2, m[64];
 
   for (i = 0, j = 0; i < 16; ++i, j += 4)
@@ -66,7 +67,6 @@ void sha256_final() {
 
   i = dig->len;
 
-  // Pad whatever data is left in the buffer.
   if (dig->len < 56) {
     dig->sha256_digest[i++] = 0x80;
     while (i < 56)
@@ -79,7 +79,6 @@ void sha256_final() {
     memset(dig->sha256_digest, 0, 56);
   }
 
-  // Append to the padding the total message's length in bits and transform.
   dig->lenbits += dig->len * 8;
   dig->sha256_digest[63] = dig->lenbits;
   dig->sha256_digest[62] = dig->lenbits >> 8;
@@ -91,9 +90,6 @@ void sha256_final() {
   dig->sha256_digest[56] = dig->lenbits >> 56;
   sha256_transform(dig->sha256_digest);
 
-  // Since this implementation uses little endian byte ordering and SHA uses big
-  // endian, reverse all the bytes when copying the final state to the output
-  // hash.
   for (i = 0; i < 4; ++i) {
     dig->hash[i] = (dig->s[0] >> (24 - i * 8)) & 0x000000ff;
     dig->hash[i + 4] = (dig->s[1] >> (24 - i * 8)) & 0x000000ff;

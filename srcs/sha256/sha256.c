@@ -16,6 +16,7 @@ void FreeSha256() {
 static void PrintAllSum() {
   t_sha256 *sha256 = Get_sha256(NULL);
   t_input *tmp_input = sha256->flag.head;
+  unsigned long checkFlagP = (unsigned long)tmp_input->next;
 
   while (tmp_input) {
     char *input = tmp_input->input;
@@ -26,23 +27,13 @@ static void PrintAllSum() {
       PrintError(tmp_input->type, input, sha256->flag.cmd);
     }
     if (tmp_input->type == TYPE_STDIN) {
-      if (sha256->flag.flag & FLAG_P) {
-        int len = ft_strlen(input);
-        if (input[len - 1] == '\n') {
-          char *tmp = ft_strdup(input);
-          tmp[len - 1] = 0;
-          sha256->digest->Write(tmp);
-          Print_Sha256(sha256->flag.flag, tmp_input->type, tmp,
-                       sha256->digest->Print);
-          free(tmp);
-        } else {
-          sha256->digest->Write(input);
-          Print_Sha256(sha256->flag.flag, tmp_input->type, input,
-                       sha256->digest->Print);
-        }
-      } else {
+      if (checkFlagP != 0 && sha256->flag.flag & FLAG_P) {
         sha256->digest->Write(input);
-        Print_Sha256(sha256->flag.flag, tmp_input->type, "stdin",
+        Print_Sha256(sha256->flag.flag, tmp_input->type, input,
+                     sha256->digest->Print);
+      } else if (checkFlagP == 0) {
+        sha256->digest->Write(input);
+        Print_Sha256(sha256->flag.flag, tmp_input->type, input,
                      sha256->digest->Print);
       }
     } else if (tmp_input->type == TYPE_STRING) {
@@ -60,10 +51,6 @@ static void PrintAllSum() {
 
 int Runsha256() {
   t_sha256 *sha256 = Get_sha256(NULL);
-  // sha256->digest->Write = &sha256_update;
-  // sha256->digest->Print = &PrintSha256;
-  // sha256->digest->Write("test");
-  // sha256->digest->Print();
   if (sha256->flag.head == NULL) {
     char *s = ReadStdin();
     AddInput(&sha256->flag.head, s, TYPE_STDIN, "");
@@ -87,12 +74,10 @@ t_sha256 *ft_NewSha256(t_flag flag) {
     return NULL;
   }
   sha256->digest->SetGet_RK(NULL, &get_sha256_K);
-  // TODO add init digest
   Get_sha256(sha256);
   sha256->flag = flag;
   sha256->Free = &FreeSha256;
   sha256->PrintSum = &PrintAllSum;
   sha256->digest->Write = &sha256_update;
-  // sha256->digest->Write = &Write;
   return sha256;
 }

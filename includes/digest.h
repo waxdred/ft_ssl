@@ -24,6 +24,7 @@
 
 // The blocksize of MD5 in bytes.
 #define DIGESTSIZE 16
+#define DIGESTSIZESHA 64
 #define BlockSize 64
 #define BUF_SIZE 512
 

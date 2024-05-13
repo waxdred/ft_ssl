@@ -48,7 +48,7 @@ t_digest *Init_digest(FlagCmd cmd) {
 
 t_digest *Reset_digest_sha256() {
   t_digest *d = Get_digest(NULL);
-  ft_bzero(d->md5_digest, DIGESTSIZE);
+  ft_bzero(d->sha256_digest, DIGESTSIZESHA);
   d->s[0] = SHA256_INIT0;
   d->s[1] = SHA256_INIT1;
   d->s[2] = SHA256_INIT2;
