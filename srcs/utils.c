@@ -9,6 +9,16 @@ int ft_strlen(const char *str) {
   return len;
 }
 
+char *ft_trimLastWhiteSpace(char *str) {
+  int len = ft_strlen(str);
+  while (len > 0 && (str[len - 1] == ' ' || str[len - 1] == '\t' ||
+                     str[len - 1] == '\n')) {
+    str[len - 1] = 0;
+    len--;
+  }
+  return str;
+}
+
 char *ReadStdin() {
   char buf[512];
   char *p = NULL;

@@ -38,15 +38,11 @@ t_digest *Init_digest(FlagCmd cmd) {
     d->Reset = &Reset_digest_sha256;
     d->Print = &PrintSha256;
     d->Reset = &Reset_digest_sha256;
-    // Add other digest
     break;
   }
   Get_digest(d);
   d->SetGet_RK = &SetGet_RK;
   d->Reset();
-  // TODO get ptr func md5 and sha256
-  // d->Print = &PrintSum;
-  // d->Write = &Write;
   return d;
 }
 
@@ -69,10 +65,11 @@ t_digest *Reset_digest_sha256() {
 t_digest *Reset_digest_md5() {
   t_digest *d = Get_digest(NULL);
   ft_bzero(d->md5_digest, DIGESTSIZE);
-  d->s[0] = MD5_INIT0;
-  d->s[1] = MD5_INIT1;
-  d->s[2] = MD5_INIT2;
-  d->s[3] = MD5_INIT3;
+
+  d->m[0] = MD5_INIT0;
+  d->m[1] = MD5_INIT1;
+  d->m[2] = MD5_INIT2;
+  d->m[3] = MD5_INIT3;
   d->nx = 0;
   d->len = 0;
   return d;

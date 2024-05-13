@@ -18,7 +18,6 @@ static void PrintAllSum() {
   t_input *tmp_input = sha256->flag.head;
 
   while (tmp_input) {
-    printf("PrintAllSum\n");
     char *input = tmp_input->input;
     sha256->digest->Reset();
     if (tmp_input->type == TYPE_ERR_FILE) {

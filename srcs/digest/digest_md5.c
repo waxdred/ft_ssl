@@ -19,11 +19,13 @@ void Write_md5(char *p) {
 void md5_digest(size_t new_length, uint8_t *padded_message) {
   t_digest *dig = Get_digest(NULL);
   for (size_t i = 0; i < new_length; i += BlockSize) {
+
     uint32_t w[DIGESTSIZE];
     for (int j = 0; j < DIGESTSIZE; j++) {
       w[j] = *(uint32_t *)(padded_message + i + j * 4);
     }
     uint32_t a = dig->m[0], b = dig->m[1], c = dig->m[2], d = dig->m[3];
+
     for (int i = 0; i < BlockSize; i++) {
       uint32_t f, g;
       if (i <= 15) {

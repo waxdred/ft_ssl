@@ -16,5 +16,6 @@ int OpenFile(char *filename);
 char *ReadFile(int fd);
 char *ft_strjoin(char const *s1, char const *s2);
 char *ReadStdin();
+char *ft_trimLastWhiteSpace(char *str);
 
 #endif

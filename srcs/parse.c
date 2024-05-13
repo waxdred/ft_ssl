@@ -23,8 +23,12 @@ void FreeFlag(t_flag *flag) {
   t_input *tmp = flag->head;
   while (tmp) {
     t_input *next = tmp->next;
-    free(tmp->input);
-    free(tmp->filename);
+    if (tmp->input != NULL) {
+      free(tmp->input);
+    }
+    if (tmp->filename != NULL) {
+      free(tmp->filename);
+    }
     free(tmp);
     tmp = next;
   }
@@ -80,7 +84,7 @@ int parse(t_flag *flag, int ac, char **av) {
         }
         done = 1;
       } else {
-        AddInput(&flag->head, "", TYPE_ERR_FILE, av[i]);
+        AddInput(&flag->head, ft_strdup(""), TYPE_ERR_FILE, av[i]);
         done = 1;
       }
     } else if (opt == -1) {
@@ -103,7 +107,6 @@ int parse(t_flag *flag, int ac, char **av) {
       flag->flag |= FLAG_R;
       break;
     case 's':
-      // Add string to input
       if (i + 1 <= ac)
         AddInput(&flag->head, ft_strdup(av[i + 1]), TYPE_STRING, av[i]);
       flag->flag |= FLAG_S;
