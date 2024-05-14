@@ -17,5 +17,7 @@ char *ReadFile(int fd);
 char *ft_strjoin(char const *s1, char const *s2);
 char *ReadStdin();
 char *ft_trimLastWhiteSpace(char *str);
+void ft_readline(char *file, void (*Write)(unsigned char *f));
+void *ft_memset(void *b, int c, size_t len);
 
 #endif
