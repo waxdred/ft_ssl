@@ -11,6 +11,7 @@ SRCS_DIR = srcs/
 
 SRCS = $(SRCS_DIR)error.c \
        $(SRCS_DIR)utils.c \
+       $(SRCS_DIR)readline.c \
        $(SRCS_DIR)parse.c \
        $(SRCS_DIR)digest/digest.c \
        $(SRCS_DIR)digest/digest_md5.c \
