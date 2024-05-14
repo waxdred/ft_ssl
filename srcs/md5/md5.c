@@ -50,7 +50,7 @@ static void PrintAllSum() {
       md5->digest->Write((BYTE *)(input));
       PrintMd5(md5->flag.flag, tmp_input->type, input, md5->digest->Print);
     } else if (tmp_input->type == TYPE_FILE) {
-      md5->digest->Write((BYTE *)(input));
+      ft_readline(tmp_input->filename, md5->digest->Write);
       PrintMd5(md5->flag.flag, tmp_input->type, tmp_input->filename,
                md5->digest->Print);
     }
