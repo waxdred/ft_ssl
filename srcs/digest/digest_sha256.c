@@ -2,7 +2,6 @@
 
 void sha256_transform(const uint8_t data[]) {
   t_digest *dig = Get_digest(NULL);
-  dig->Reset();
   uint32_t a, b, c, d, e, f, g, h, i, j, t1, t2, m[64];
 
   for (i = 0, j = 0; i < 16; ++i, j += 4)
@@ -43,10 +42,10 @@ void sha256_transform(const uint8_t data[]) {
   dig->s[7] += h;
 }
 
-void sha256_update(char *data) {
+void sha256_update(BYTE *data) {
   t_digest *dig = Get_digest(NULL);
   uint32_t i;
-  size_t len = ft_strlen(data);
+  size_t len = ft_strlen((char *)(data));
 
   for (i = 0; i < len; ++i) {
     dig->sha256_digest[dig->len] = data[i];
