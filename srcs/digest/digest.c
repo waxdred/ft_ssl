@@ -15,13 +15,6 @@ void SetGet_RK(uint32_t *(*Get_R)(), uint32_t *(*Get_K)()) {
     d->Get_K = Get_K;
 }
 
-void PrintSumMd5() {
-  t_digest *d = Get_digest(NULL);
-  for (int i = 0; i < 16; i++) {
-    printf("%02x", d->md5_digest[i]);
-  }
-}
-
 t_digest *Init_digest(FlagCmd cmd) {
   t_digest *d = malloc(sizeof(t_digest));
   if (d == NULL)
@@ -38,7 +31,7 @@ t_digest *Init_digest(FlagCmd cmd) {
     d->Reset = &Reset_digest_sha256;
     d->Print = &PrintSha256;
     d->Reset = &Reset_digest_sha256;
-    d->Write = &sha256_update;
+    d->Write = &Write_sha256;
     break;
   }
   Get_digest(d);
@@ -65,8 +58,6 @@ t_digest *Reset_digest_sha256() {
 
 t_digest *Reset_digest_md5() {
   t_digest *d = Get_digest(NULL);
-  ft_bzero(d->md5_digest, DIGESTSIZE);
-
   d->m[0] = MD5_INIT0;
   d->m[1] = MD5_INIT1;
   d->m[2] = MD5_INIT2;
