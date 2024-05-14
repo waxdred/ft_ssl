@@ -88,16 +88,15 @@ void md5_transform(const BYTE data[]) {
 }
 
 void Write_md5(BYTE *p) {
-  if (p == NULL)
-    return;
   t_digest *dig = Get_digest(NULL);
+  size_t len = ft_strlen((char *)(p));
+  size_t i;
   if (p == NULL)
     return;
-  dig->len = ft_strlen((char *)(p));
+  if (p == NULL)
+    return;
 
-  size_t i;
-
-  for (i = 0; i < dig->len; ++i) {
+  for (i = 0; i < len; ++i) {
     dig->md5_digest[dig->len] = p[i];
     dig->len++;
     if (dig->len == 64) {
@@ -112,6 +111,7 @@ void md5_digest() {
   t_digest *dig = Get_digest(NULL);
   size_t i;
 
+  ft_bzero(dig->hash, 32);
   i = dig->len;
 
   if (dig->len < 56) {
@@ -123,7 +123,7 @@ void md5_digest() {
     while (i < 64)
       dig->md5_digest[i++] = 0x00;
     md5_transform(dig->md5_digest);
-    memset(dig->md5_digest, 0, 56);
+    ft_memset(dig->md5_digest, 0, 56);
   }
 
   dig->lenbits += dig->len * 8;
@@ -142,5 +142,13 @@ void md5_digest() {
     dig->hash[i + 4] = (dig->m[1] >> (i * 8)) & 0x000000ff;
     dig->hash[i + 8] = (dig->m[2] >> (i * 8)) & 0x000000ff;
     dig->hash[i + 12] = (dig->m[3] >> (i * 8)) & 0x000000ff;
+  }
+}
+
+void PrintSumMd5() {
+  t_digest *d = Get_digest(NULL);
+  md5_digest();
+  for (int i = 0; i < 16; i++) {
+    printf("%02x", d->hash[i]);
   }
 }
