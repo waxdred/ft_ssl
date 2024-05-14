@@ -65,8 +65,7 @@ int Runsha256() {
 t_sha256 *ft_NewSha256(t_flag flag) {
   t_sha256 *sha256 = (t_sha256 *)malloc(sizeof(t_sha256));
   if (!sha256) {
-    perror("malloc");
-    exit(1);
+    ft_printf("Error: malloc failed\n");
   }
   ft_bzero(sha256, sizeof(t_sha256));
   sha256->digest = Init_digest(flag.cmd);

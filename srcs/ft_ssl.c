@@ -10,8 +10,8 @@ t_ssl *Get_ssl(t_ssl *s) {
 t_ssl *New_ssl() {
   t_ssl *ssl = (t_ssl *)malloc(sizeof(t_ssl));
   if (!ssl) {
-    perror("malloc");
-    exit(1);
+    ft_printf("Error: malloc failed\n");
+    return NULL;
   }
   ft_bzero(ssl, sizeof(t_ssl));
   Get_ssl(ssl);

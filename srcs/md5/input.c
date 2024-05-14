@@ -4,8 +4,8 @@ t_input *AddInput(t_input **input, char *str, TypeInput type, char *filename) {
   t_input *new_input;
   new_input = (t_input *)malloc(sizeof(t_input));
   if (!new_input) {
-    perror("malloc");
-    exit(1);
+    ft_printf("Error: malloc failed\n");
+    return NULL;
   }
   ft_bzero(new_input, sizeof(t_input));
   new_input->type = type;
