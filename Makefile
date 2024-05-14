@@ -4,6 +4,7 @@ HEADERS = includes/ft_ssl.h \
           includes/md5.h    \
           includes/digest.h    \
           includes/sha256.h    \
+          includes/ft_printf.h    \
           includes/utils.h
 
 SRCS_DIR = srcs/
@@ -24,6 +25,7 @@ SRCS = $(SRCS_DIR)error.c \
        $(SRCS_DIR)md5/md5.c  \
        $(SRCS_DIR)md5/output.c \
        $(SRCS_DIR)md5/table.c \
+       $(SRCS_DIR)printf/ft_printf.c \
        $(SRCS_DIR)ft_ssl.c \
        $(SRCS_DIR)main.c
 OBJS_DIR = objs

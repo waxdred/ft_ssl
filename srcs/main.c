@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
   }
 
   if (argc < 2) {
-    printf("usage: ft_ssl command [flags] [file/string]");
+    ft_printf("usage: ft_ssl command [flags] [file/string]");
     return (1);
   }
 

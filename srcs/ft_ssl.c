@@ -42,7 +42,7 @@ int Init_ssl(t_flag flag) {
   case MD5:
     ssl->md5 = ft_NewMD5(flag);
     if (ssl->md5 == NULL) {
-      printf("Error: malloc failed\n");
+      ft_printf("Error: malloc failed\n");
       return (1);
     }
     ssl->Run = &RunMD5;
@@ -50,7 +50,7 @@ int Init_ssl(t_flag flag) {
   case SHA256:
     ssl->sha256 = ft_NewSha256(flag);
     if (ssl->sha256 == NULL) {
-      printf("Error: malloc failed\n");
+      ft_printf("Error: malloc failed\n");
       return (1);
     }
     ssl->Run = &Runsha256;

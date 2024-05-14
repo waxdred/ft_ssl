@@ -1,6 +1,7 @@
 #ifndef DIGEST_H
 #define DIGEST_H
 #include "./flag.h"
+#include "./ft_printf.h"
 #include "utils.h"
 #include <stdint.h>
 #include <stdio.h>

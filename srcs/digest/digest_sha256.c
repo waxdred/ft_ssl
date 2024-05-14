@@ -105,5 +105,5 @@ void PrintSha256() {
   t_digest *dig = Get_digest(NULL);
   sha256_final();
   for (int i = 0; i < 32; i++)
-    printf("%02x", dig->hash[i]);
+    ft_printf("%02x", dig->hash[i]);
 }

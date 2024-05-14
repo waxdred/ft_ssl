@@ -149,6 +149,6 @@ void PrintSumMd5() {
   t_digest *d = Get_digest(NULL);
   md5_digest();
   for (int i = 0; i < 16; i++) {
-    printf("%02x", d->hash[i]);
+    ft_printf("%02x", d->hash[i]);
   }
 }

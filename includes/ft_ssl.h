@@ -2,6 +2,7 @@
 #define FT_SSL_H
 #include "./digest.h"
 #include "./flag.h"
+#include "./ft_printf.h"
 #include "./md5.h"
 #include "./sha256.h"
 

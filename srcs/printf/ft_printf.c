@@ -23,7 +23,7 @@ int ft_checkX(const char *s1) {
 }
 
 // Presion to handle %02x
-void ft_putnbr_base(int nbr, char *base) {
+void ft_putnbr_base(int nbr, char *base, int count) {
   unsigned int lnbr;
   unsigned int size;
 
@@ -36,14 +36,17 @@ void ft_putnbr_base(int nbr, char *base) {
     lnbr *= -1;
   }
   if (lnbr / size) {
-    ft_putnbr_base(lnbr / size, base);
+    ft_putnbr_base(lnbr / size, base, count + 1);
     ft_putchar(base[lnbr % size]);
-  } else
+  } else {
     ft_putchar(base[lnbr % size]);
+    if (count == 0)
+      ft_putchar('0');
+  }
 }
 
 // format to handle %s %02x
-void ft_read_args(va_list *args, const char *str) {
+void ft_read_args(va_list *args, const char *str, int *idx) {
   str++;
   if (!str)
     return;
@@ -51,28 +54,26 @@ void ft_read_args(va_list *args, const char *str) {
     ft_putchar(va_arg(*args, int));
   else if (*str == 's')
     ft_putstr(va_arg(*args, char *));
-  else if (ft_checkX(str))
-    ft_putnbr_base(va_arg(*args, int), "0123456789abcdef");
-  else if (*str == '%')
+  else if (ft_checkX(str)) {
+    ft_putnbr_base(va_arg(*args, int), "0123456789abcdef", 0);
+    *idx += 2;
+  } else if (*str == '%')
     ft_putchar('%');
-  str++;
+  *idx += 1;
 }
 
 void ft_printf(const char *format, ...) {
   va_list args;
-  char Precision[2];
-
-  ft_bzero(Precision, 2);
-
+  int i = 0;
   if (!format)
     return;
   va_start(args, format);
-  while (*format) {
-    if (*format == '%')
-      ft_read_args(&args, format++);
+  while (format[i]) {
+    if (format[i] == '%')
+      ft_read_args(&args, &format[i], &i);
     else
-      ft_putchar(*format);
-    format++;
+      ft_putchar(format[i]);
+    i++;
   }
   va_end(args);
 }

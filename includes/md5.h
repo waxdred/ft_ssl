@@ -2,6 +2,7 @@
 #define MD5_H
 #include "./digest.h"
 #include "./flag.h"
+#include "./ft_printf.h"
 #include "./utils.h"
 #include <stdint.h>
 #include <stdio.h>

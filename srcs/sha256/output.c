@@ -10,34 +10,34 @@ void Print_Sha256(int reverse, TypeInput t, const char *str, void (*Print)()) {
     s = ft_strdup(str);
     s = ft_trimLastWhiteSpace(s);
     if (q) {
-      p ? printf("(stdin)= ") : printf("(\"%s\")= ", s);
+      p ? ft_printf("(stdin)= ") : ft_printf("(\"%s\")= ", s);
     }
     Print();
-    printf("\n");
+    ft_printf("\n");
     free(s);
     break;
   case TYPE_STRING:
     if (r) {
       if (q) {
-        printf("SHA256 (\"%s\") = ", str);
+        ft_printf("SHA256 (\"%s\") = ", str);
       }
       Print();
-      printf("\n");
+      ft_printf("\n");
     } else {
       Print();
-      q ? printf(" \"%s\"\n", str) : printf("\n");
+      q ? ft_printf(" \"%s\"\n", str) : ft_printf("\n");
     }
     break;
   case TYPE_FILE:
     if (r) {
       if (q) {
-        printf("SHA256 (%s) = ", str);
+        ft_printf("SHA256 (%s) = ", str);
       }
       Print();
-      printf("\n");
+      ft_printf("\n");
     } else {
       Print();
-      q ? printf(" %s\n", str) : printf("\n");
+      q ? ft_printf(" %s\n", str) : ft_printf("\n");
     }
   }
 }

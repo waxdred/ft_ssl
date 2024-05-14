@@ -1,6 +1,7 @@
 #ifndef FT_FLAG_H
 #define FT_FLAG_H
 
+#include "ft_printf.h"
 #include "utils.h"
 
 typedef int FlagType;
