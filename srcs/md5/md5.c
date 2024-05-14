@@ -40,17 +40,17 @@ static void PrintAllSum() {
     }
     if (tmp_input->type == TYPE_STDIN) {
       if (checkFlagP != 0 && md5->flag.flag & FLAG_P) {
-        md5->digest->Write(input);
+        md5->digest->Write((BYTE *)(input));
         PrintMd5(md5->flag.flag, tmp_input->type, input, md5->digest->Print);
       } else if (checkFlagP == 0) {
-        md5->digest->Write(input);
+        md5->digest->Write((BYTE *)(input));
         PrintMd5(md5->flag.flag, tmp_input->type, input, md5->digest->Print);
       }
     } else if (tmp_input->type == TYPE_STRING) {
-      md5->digest->Write(input);
+      md5->digest->Write((BYTE *)(input));
       PrintMd5(md5->flag.flag, tmp_input->type, input, md5->digest->Print);
     } else if (tmp_input->type == TYPE_FILE) {
-      md5->digest->Write(input);
+      md5->digest->Write((BYTE *)(input));
       PrintMd5(md5->flag.flag, tmp_input->type, tmp_input->filename,
                md5->digest->Print);
     }
