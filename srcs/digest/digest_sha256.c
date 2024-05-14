@@ -1,6 +1,6 @@
 #include "../../includes/digest.h"
 
-void sha256_transform(const uint8_t data[]) {
+void sha256_transform(const BYTE data[]) {
   t_digest *dig = Get_digest(NULL);
   uint32_t a, b, c, d, e, f, g, h, i, j, t1, t2, m[64];
 
@@ -42,7 +42,7 @@ void sha256_transform(const uint8_t data[]) {
   dig->s[7] += h;
 }
 
-void sha256_update(BYTE *data) {
+void Write_sha256(BYTE *data) {
   t_digest *dig = Get_digest(NULL);
   uint32_t i;
   size_t len = ft_strlen((char *)(data));
@@ -75,7 +75,7 @@ void sha256_final() {
     while (i < 64)
       dig->sha256_digest[i++] = 0x00;
     sha256_transform(dig->sha256_digest);
-    memset(dig->sha256_digest, 0, 56);
+    ft_memset(dig->sha256_digest, 0, 56);
   }
 
   dig->lenbits += dig->len * 8;
