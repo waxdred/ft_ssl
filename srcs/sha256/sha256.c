@@ -79,6 +79,6 @@ t_sha256 *ft_NewSha256(t_flag flag) {
   sha256->flag = flag;
   sha256->Free = &FreeSha256;
   sha256->PrintSum = &PrintAllSum;
-  sha256->digest->Write = &sha256_update;
+  sha256->digest->Write = &Write_sha256;
   return sha256;
 }
