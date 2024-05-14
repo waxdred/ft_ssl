@@ -38,6 +38,7 @@ t_digest *Init_digest(FlagCmd cmd) {
     d->Reset = &Reset_digest_sha256;
     d->Print = &PrintSha256;
     d->Reset = &Reset_digest_sha256;
+    d->Write = &sha256_update;
     break;
   }
   Get_digest(d);
@@ -48,7 +49,6 @@ t_digest *Init_digest(FlagCmd cmd) {
 
 t_digest *Reset_digest_sha256() {
   t_digest *d = Get_digest(NULL);
-  ft_bzero(d->hash, 32);
   d->s[0] = SHA256_INIT0;
   d->s[1] = SHA256_INIT1;
   d->s[2] = SHA256_INIT2;
