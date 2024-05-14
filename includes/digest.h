@@ -92,7 +92,7 @@ typedef struct s_digest {
 } t_digest;
 
 void PrintSha256();
-void sha256_update(BYTE *data);
+void Write_sha256(BYTE *data);
 t_digest *Get_digest(t_digest *d);
 uint32_t md5_leftrotate(uint32_t x, uint32_t c);
 t_digest *Reset_digest_sha256();
@@ -102,5 +102,6 @@ void Print_Digest(int reverse, TypeInput t, const char *str, void());
 t_digest *Init_digest(FlagCmd cmd);
 void Write_md5(BYTE *p);
 void Print_Digest(int reverse, TypeInput t, const char *str, void (*Print)());
+void PrintSumMd5();
 
 #endif
