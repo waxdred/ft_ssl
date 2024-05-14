@@ -19,6 +19,17 @@ char *ft_trimLastWhiteSpace(char *str) {
   return str;
 }
 
+void *ft_memset(void *b, int c, size_t len) {
+  unsigned char *pb;
+  size_t i;
+
+  pb = (unsigned char *)b;
+  i = 0;
+  while (i < len)
+    pb[i++] = (unsigned char)c;
+  return (b);
+}
+
 char *ReadStdin() {
   char buf[512];
   char *p = NULL;
@@ -179,19 +190,6 @@ char *ft_joint(char *dest, char const *s2, size_t i, char *tmp) {
   if (tmp == s2)
     return (dest);
   return (ft_joint(dest, s2, i, (char *)s2));
-}
-
-void *ft_memset(void *b, int c, size_t l) {
-  size_t i;
-  unsigned char *r;
-
-  i = 0;
-  r = (unsigned char *)b;
-  while (i < l) {
-    r[i] = c;
-    i++;
-  }
-  return (b);
 }
 
 void *ft_malloc(size_t size) {
