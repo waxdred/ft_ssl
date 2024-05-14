@@ -64,10 +64,7 @@ int parse(t_flag *flag, int ac, char **av) {
   while (i < ac) {
     if (done == 1) {
       if ((fd = OpenFile(av[i])) != -1) {
-        char *c = ReadFile(fd);
-        if (c != NULL) {
-          AddInput(&flag->head, c, TYPE_FILE, av[i]);
-        }
+        AddInput(&flag->head, ft_strdup(""), TYPE_FILE, av[i]);
       } else {
         AddInput(&flag->head, ft_strdup(""), TYPE_ERR_FILE, av[i]);
       }
@@ -78,10 +75,7 @@ int parse(t_flag *flag, int ac, char **av) {
     if (opt == -1) {
       int fd;
       if ((fd = OpenFile(av[i])) != -1) {
-        char *c = ReadFile(fd);
-        if (c != NULL) {
-          AddInput(&flag->head, c, TYPE_FILE, av[i]);
-        }
+        AddInput(&flag->head, ft_strdup(""), TYPE_FILE, av[i]);
         done = 1;
       } else {
         AddInput(&flag->head, ft_strdup(""), TYPE_ERR_FILE, av[i]);
