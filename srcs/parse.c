@@ -34,7 +34,7 @@ void FreeFlag(t_flag *flag) {
   }
 }
 
-int parse(t_flag *flag, int ac, char **av) {
+int parse(t_flag *flag, int ac, char **av, char **hashList) {
   int opt;
   int i;
   int fd;
@@ -49,17 +49,20 @@ int parse(t_flag *flag, int ac, char **av) {
       AddInput(&flag->head, c, TYPE_STDIN, "");
     }
   }
-  if (ft_strcmp(av[i], "md5") == 0) {
-    flag->cmd = MD5;
-  } else if (ft_strcmp(av[i], "sha256") == 0) {
-    flag->cmd = SHA256;
-  } else if (ft_strcmp(av[i], "-h") == 0) {
-    PrintHelp();
-    return EXIT_FAILURE;
-  } else {
-    PrintError(TYPE_ERR_CMD, av[i], flag->cmd);
+  // TODO: Fix this send arg
+  int len = sizeof(hashList);
+  int check = 0;
+  for (i = 0; hashList[i] != NULL; i++) {
+    if (ft_strcmp(av[1], hashList[i]) == 0) {
+      check = 1;
+      break;
+    }
+  }
+  if (check == 0) {
+    PrintError(TYPE_ERR_CMD, av[1], flag->cmd);
     return EXIT_FAILURE;
   }
+  flag->cmd = av[1];
   i++;
   while (i < ac) {
     if (done == 1) {

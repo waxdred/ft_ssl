@@ -37,13 +37,13 @@ typedef struct s_input {
 
 typedef struct s_flag {
   FlagType flag;
-  FlagCmd cmd;
+  char *cmd;
   t_input *head;
 } t_flag;
-int parse(t_flag *flag, int ac, char **av);
+int parse(t_flag *flag, int ac, char **av, char **hashList);
 t_input *AddInput(t_input **input, char *str, TypeInput type, char *filename);
 void PrintHelp();
-void PrintError(TypeInput type, const char *name, FlagCmd cmd);
 void FreeFlag(t_flag *flag);
+void PrintError(TypeInput type, const char *name, char *cmd);
 
 #endif

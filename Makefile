@@ -15,16 +15,18 @@ SRCS = $(SRCS_DIR)error.c \
        $(SRCS_DIR)readline.c \
        $(SRCS_DIR)parse.c \
        $(SRCS_DIR)digest/digest.c \
-       $(SRCS_DIR)digest/digest_md5.c \
-       $(SRCS_DIR)digest/digest_sha256.c \
        $(SRCS_DIR)digest/tool.c \
        $(SRCS_DIR)sha256/sha256.c \
        $(SRCS_DIR)sha256/output.c \
        $(SRCS_DIR)sha256/table.c \
+       $(SRCS_DIR)sha256/calcul.c \
+       $(SRCS_DIR)sha256/algo.c \
        $(SRCS_DIR)md5/input.c \
        $(SRCS_DIR)md5/md5.c  \
        $(SRCS_DIR)md5/output.c \
        $(SRCS_DIR)md5/table.c \
+       $(SRCS_DIR)md5/calcul.c \
+       $(SRCS_DIR)md5/algo.c \
        $(SRCS_DIR)printf/ft_printf.c \
        $(SRCS_DIR)ft_ssl.c \
        $(SRCS_DIR)main.c

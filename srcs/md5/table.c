@@ -24,3 +24,8 @@ uint32_t *get_md5_K() {
       0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391};
   return k;
 }
+
+uint32_t *get_md5_S() {
+  static uint32_t s[4] = {MD5_INIT0, MD5_INIT1, MD5_INIT2, MD5_INIT3};
+  return s;
+}

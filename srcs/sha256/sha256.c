@@ -28,16 +28,16 @@ static void PrintAllSum() {
     }
     if (tmp_input->type == TYPE_STDIN) {
       if (checkFlagP != 0 && sha256->flag.flag & FLAG_P) {
-        sha256->digest->Write((BYTE *)(input));
+        sha256->digest->Write((byte *)(input));
         Print_Sha256(sha256->flag.flag, tmp_input->type, input,
                      sha256->digest->Print);
       } else if (checkFlagP == 0) {
-        sha256->digest->Write((BYTE *)(input));
+        sha256->digest->Write((byte *)(input));
         Print_Sha256(sha256->flag.flag, tmp_input->type, input,
                      sha256->digest->Print);
       }
     } else if (tmp_input->type == TYPE_STRING) {
-      sha256->digest->Write((BYTE *)(input));
+      sha256->digest->Write((byte *)(input));
       Print_Sha256(sha256->flag.flag, tmp_input->type, input,
                    sha256->digest->Print);
     } else if (tmp_input->type == TYPE_FILE) {

@@ -15,6 +15,7 @@ void SetGet_RK(uint32_t *(*Get_R)(), uint32_t *(*Get_K)()) {
     d->Get_K = Get_K;
 }
 
+// TODO: need found way not use if else or switch statement
 t_digest *Init_digest(FlagCmd cmd) {
   t_digest *d = malloc(sizeof(t_digest));
   if (d == NULL)
@@ -42,14 +43,9 @@ t_digest *Init_digest(FlagCmd cmd) {
 
 t_digest *Reset_digest_sha256() {
   t_digest *d = Get_digest(NULL);
-  d->s[0] = SHA256_INIT0;
-  d->s[1] = SHA256_INIT1;
-  d->s[2] = SHA256_INIT2;
-  d->s[3] = SHA256_INIT3;
-  d->s[4] = SHA256_INIT4;
-  d->s[5] = SHA256_INIT5;
-  d->s[6] = SHA256_INIT6;
-  d->s[7] = SHA256_INIT7;
+  for (int i = 0; i <= d->init_size; i++) {
+    d->m[i] = d->Get_S()[i];
+  }
   d->nx = 0;
   d->len = 0;
   d->lenbits = 0;
@@ -58,7 +54,8 @@ t_digest *Reset_digest_sha256() {
 
 t_digest *Reset_digest_md5() {
   t_digest *d = Get_digest(NULL);
-  d->m[0] = MD5_INIT0;
+  for
+    d->m[0] = MD5_INIT0;
   d->m[1] = MD5_INIT1;
   d->m[2] = MD5_INIT2;
   d->m[3] = MD5_INIT3;

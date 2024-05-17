@@ -15,3 +15,10 @@ uint32_t *get_sha256_K() {
       0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2};
   return (k);
 }
+
+uint32_t *get_sha256_S() {
+  static uint32_t s[7] = {SHA256_INIT0, SHA256_INIT1, SHA256_INIT2,
+                          SHA256_INIT3, SHA256_INIT4, SHA256_INIT5,
+                          SHA256_INIT6};
+  return (s);
+}
