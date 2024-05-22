@@ -9,6 +9,10 @@ SRCS = digest/digest.c \
        md5/md5.c \
        md5/table.c \
        parse.c \
+       sha256/algo.c \
+       sha256/math.c \
+       sha256/sha256.c \
+       sha256/table.c \
        utils/ft_printf.c \
        utils/readline.c \
        utils/utils.c
@@ -19,7 +23,7 @@ OBJS = $(addprefix $(OBJS_DIR)/,$(subst $(SRCS_DIR),,$(SRCS:.c=.o)))
 
 NAME = ft_ssl
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3 -MMD -MP -Iincludes
+CFLAGS = -Wall -Wextra -Werror -g3 -MMD -MP -Iincludes -fsanitize=address
 RM = rm -rf
 
 # Compilation rule for object files

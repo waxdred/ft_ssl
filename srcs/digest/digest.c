@@ -64,8 +64,9 @@ static void Reset_algo() {
 static t_algo *get_algo(char *algo) {
   t_algo *a = Get_digest(NULL)->algo;
   while (a) {
-    if (!ft_strcmp(algo, a->name))
+    if (!ft_strcmp(algo, a->name)) {
       return a;
+    }
     a = a->next;
   }
   return NULL;
@@ -83,28 +84,37 @@ static void Run(t_flag *flag) {
   }
 
   dig->Reset();
-  if ((flag->flag & FLAG_P || tmp == NULL) && CheckStdin()) {
-    ft_readline("/dev/stdin", algo->func->Write);
-    Display_hash(flag->flag, algo->name, algo->func->Print, 0, "stdin");
+  if ((flag->flag & FLAG_P || tmp == NULL)) {
+    char *input = flag->flag & FLAG_P ? "need add string input" : "stdin";
+    char *inputRead = NULL;
+    if (flag->flag & FLAG_P) {
+      inputRead = ft_readline("/dev/stdin", algo->func->Write, 1);
+    } else {
+      ft_readline("/dev/stdin", algo->func->Write, 0);
+    }
+    Display_hash(flag->flag, algo->name, algo->func->Print, 0,
+                 flag->flag & FLAG_P ? inputRead : input);
+    if (inputRead != NULL) {
+      free(inputRead);
+    }
   }
   while (tmp) {
     char *input = tmp->input;
     int is_file = 0;
     dig->Reset();
-    // printf("input: %s\n", input);
-    // printf("algo: %s\n", algo->name);
-    // printf("algo->m_size: %d\n", algo->m_size);
-    // printf("tmp->type: %d\n", tmp->type);
-    // printf("flag->flag: %d\n", flag->flag);
     if (tmp->type == TYPE_ERR_FILE) {
       PrintError(tmp->type, tmp->filename, algo->name);
+      tmp = tmp->next;
+      continue;
     } else if (tmp->type == TYPE_ERR_STRING) {
       PrintError(tmp->type, input, dig->algo_run->name);
+      tmp = tmp->next;
+      continue;
     }
     if (tmp->type == TYPE_STDIN || tmp->type == TYPE_STRING) {
       algo->func->Write((byte *)input);
     } else if (tmp->type == TYPE_FILE) {
-      ft_readline(tmp->filename, algo->func->Write);
+      ft_readline(tmp->filename, algo->func->Write, 0);
       input = tmp->filename;
       is_file = 1;
     }

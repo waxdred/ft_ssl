@@ -15,8 +15,9 @@ char *ft_strdup(const char *s);
 int OpenFile(const char *filename);
 char *ft_trimLastWhiteSpace(char *str);
 void *ft_memset(void *b, int c, size_t len);
-void ft_readline(char *file, void (*Write)(unsigned char *f));
+char *ft_readline(char *file, void (*Write)(unsigned char *f), int retStr);
 int CheckStdin();
 char *ft_strtoupper(char *str);
+char *ft_strjoint(char *s1, char *s2);
 
 #endif

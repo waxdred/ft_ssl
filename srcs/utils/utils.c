@@ -137,3 +137,28 @@ char *ft_strdup(const char *s) {
   str[len] = '\0';
   return str;
 }
+
+char *ft_strjoint(char *s1, char *s2) {
+  char *str;
+  size_t len1;
+  size_t len2;
+  size_t i;
+  size_t j;
+  len1 = ft_strlen(s1);
+  len2 = ft_strlen(s2);
+  str = (char *)malloc(len1 + len2 + 1);
+  if (str == NULL)
+    return NULL;
+  i = 0;
+  while (i < len1) {
+    str[i] = s1[i];
+    i++;
+  }
+  j = 0;
+  while (j < len2) {
+    str[i + j] = s2[j];
+    j++;
+  }
+  str[i + j] = '\0';
+  return str;
+}

@@ -11,10 +11,8 @@ void Display_hash(FlagType flag, char *NameHash, void (*Print)(), int is_file,
   if (flag & FLAG_Q) {
     if (flag & FLAG_R) {
       Print();
-      ft_dprintf(1, "\n");
     } else {
       Print();
-      ft_dprintf(1, "\n");
     }
   } else {
     if (flag & FLAG_R) {
@@ -26,13 +24,19 @@ void Display_hash(FlagType flag, char *NameHash, void (*Print)(), int is_file,
       }
     } else {
       if (flag & FLAG_S) {
-        ft_dprintf(1, "%s (\"%s\") ", upper, input);
+        ft_dprintf(1, "%s (\"%s\") = ", upper, input);
       } else if (is_file) {
-        ft_dprintf(1, "%s (%s) ", upper, input);
+        ft_dprintf(1, "%s (%s) = ", upper, input);
+      } else {
+        if (flag & FLAG_P) {
+          ft_dprintf(1, "(\"%s\") = ", input);
+        } else {
+          ft_dprintf(1, "(%s) = ", input);
+        }
       }
       Print();
     }
   }
-  printf("\n");
+  ft_dprintf(1, "\n");
   free(upper);
 }
