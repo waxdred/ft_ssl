@@ -87,10 +87,9 @@ static void Run(t_flag *flag) {
   if ((flag->flag & FLAG_P || tmp == NULL)) {
     char *input = flag->flag & FLAG_P ? "need add string input" : "stdin";
     char *inputRead = NULL;
-    if (flag->flag & FLAG_P) {
-      inputRead = ft_readline("/dev/stdin", algo->func->Write, 1);
-    } else {
-      ft_readline("/dev/stdin", algo->func->Write, 0);
+    inputRead = ft_readline("/dev/stdin", algo->func->Write, 1);
+    if (inputRead == NULL) {
+      return;
     }
     Display_hash(flag->flag, algo->name, algo->func->Print, 0,
                  flag->flag & FLAG_P ? inputRead : input);

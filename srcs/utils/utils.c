@@ -116,7 +116,7 @@ int OpenFile(const char *filename) {
   int fd;
   char *tmp;
 
-  fd = open(filename, O_RDONLY);
+  fd = open(filename, O_RDONLY | O_NONBLOCK);
   tmp = NULL;
   if (fd == -1)
     return (-1);
