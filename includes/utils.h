@@ -12,12 +12,11 @@ char *ft_strchr(const char *str, int c);
 void ft_bzero(void *s, size_t n);
 int ft_strcmp(const char *s1, const char *s2);
 char *ft_strdup(const char *s);
-int OpenFile(char *filename);
-char *ReadFile(int fd);
-char *ft_strjoin(char const *s1, char const *s2);
-char *ReadStdin();
+int OpenFile(const char *filename);
 char *ft_trimLastWhiteSpace(char *str);
-void ft_readline(char *file, void (*Write)(unsigned char *f));
 void *ft_memset(void *b, int c, size_t len);
+void ft_readline(char *file, void (*Write)(unsigned char *f));
+int CheckStdin();
+char *ft_strtoupper(char *str);
 
 #endif

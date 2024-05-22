@@ -1,5 +1,29 @@
-#include "../includes/flag.h"
-#include <stdio.h>
+#include "flag.h"
+
+static t_input *AddInput(t_input **input, char *str, TypeInput type,
+                         char *filename) {
+  t_input *new_input;
+  new_input = (t_input *)malloc(sizeof(t_input));
+  if (!new_input) {
+    perror("malloc");
+    exit(1);
+  }
+  ft_bzero(new_input, sizeof(t_input));
+  new_input->type = type;
+  new_input->input = str;
+  new_input->filename = ft_strdup(filename);
+  new_input->next = NULL;
+  if (!*input) {
+    *input = new_input;
+  } else {
+    t_input *current = *input;
+    while (current->next) {
+      current = current->next;
+    }
+    current->next = new_input;
+  }
+  return new_input;
+}
 
 static void ft_getopt(char *av, char *flag, int *opt) {
   const char *optchar;
@@ -34,7 +58,7 @@ void FreeFlag(t_flag *flag) {
   }
 }
 
-int parse(t_flag *flag, int ac, char **av, char **hashList) {
+int parse(t_flag *flag, int ac, char **av) {
   int opt;
   int i;
   int fd;
@@ -42,27 +66,7 @@ int parse(t_flag *flag, int ac, char **av, char **hashList) {
 
   opt = 0;
   i = 1;
-  // FIRST get stdin
-  if ((fd = OpenFile("/dev/stdin")) != -1) {
-    char *c = ReadFile(STDIN_FILENO);
-    if (c != NULL) {
-      AddInput(&flag->head, c, TYPE_STDIN, "");
-    }
-  }
-  // TODO: Fix this send arg
-  int len = sizeof(hashList);
-  int check = 0;
-  for (i = 0; hashList[i] != NULL; i++) {
-    if (ft_strcmp(av[1], hashList[i]) == 0) {
-      check = 1;
-      break;
-    }
-  }
-  if (check == 0) {
-    PrintError(TYPE_ERR_CMD, av[1], flag->cmd);
-    return EXIT_FAILURE;
-  }
-  flag->cmd = av[1];
+  flag->algo = av[1];
   i++;
   while (i < ac) {
     if (done == 1) {
@@ -89,10 +93,10 @@ int parse(t_flag *flag, int ac, char **av, char **hashList) {
     }
     switch (opt) {
     case 'h':
-      PrintHelp();
+      PrintHelp(flag->algo);
       break;
     case '?':
-      PrintError(TYPE_ERR_USAGE, av[i], flag->cmd);
+      PrintError(TYPE_ERR_USAGE, av[i], flag->algo);
       return EXIT_FAILURE;
     case 'p':
       flag->flag |= FLAG_P;

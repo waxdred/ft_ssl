@@ -1,4 +1,5 @@
-#include "../../includes/digest.h"
+#include "digest.h"
+#include <stdio.h>
 
 t_digest *Get_digest(t_digest *d) {
   static t_digest *digest;
@@ -7,59 +8,123 @@ t_digest *Get_digest(t_digest *d) {
   return digest;
 }
 
-void SetGet_RK(uint32_t *(*Get_R)(), uint32_t *(*Get_K)()) {
-  t_digest *d = Get_digest(NULL);
-  if (Get_R != NULL)
-    d->Get_R = Get_R;
-  if (Get_K != NULL)
-    d->Get_K = Get_K;
-}
-
-// TODO: need found way not use if else or switch statement
-t_digest *Init_digest(FlagCmd cmd) {
-  t_digest *d = malloc(sizeof(t_digest));
-  if (d == NULL)
+t_algo **AddAlgo(t_algo **algo, char *name, t_func *f, uint8_t m_size) {
+  t_algo *new_algo;
+  new_algo = malloc(sizeof(t_algo));
+  if (!new_algo) {
     return NULL;
-  ft_bzero(d, sizeof(t_digest));
-  switch (cmd) {
-  case MD5:
-    d->Reset = &Reset_digest_md5;
-    d->digest = &md5_digest;
-    d->Write = &Write_md5;
-    d->Print = &PrintSumMd5;
-    break;
-  case SHA256:
-    d->Reset = &Reset_digest_sha256;
-    d->Print = &PrintSha256;
-    d->Reset = &Reset_digest_sha256;
-    d->Write = &Write_sha256;
-    break;
   }
-  Get_digest(d);
-  d->SetGet_RK = &SetGet_RK;
-  d->Reset();
-  return d;
+  ft_bzero(new_algo, sizeof(t_algo));
+  new_algo->name = name;
+  new_algo->func = f;
+  new_algo->m_size = m_size;
+  if (!*algo) {
+    *algo = new_algo;
+  } else {
+    t_algo *current = *algo;
+    while (current->next) {
+      current = current->next;
+    }
+    current->next = new_algo;
+  }
+
+  return algo;
 }
 
-t_digest *Reset_digest_sha256() {
-  t_digest *d = Get_digest(NULL);
-  for (int i = 0; i <= d->init_size; i++) {
-    d->m[i] = d->Get_S()[i];
+void Free() {
+  t_digest *dig = Get_digest(NULL);
+  t_algo *algo = dig->algo;
+  while (algo) {
+    t_algo *next = algo->next;
+    free(algo);
+    algo = next;
   }
-  d->nx = 0;
-  d->len = 0;
-  d->lenbits = 0;
-  return d;
+  free(dig);
 }
 
-t_digest *Reset_digest_md5() {
-  t_digest *d = Get_digest(NULL);
-  for
-    d->m[0] = MD5_INIT0;
-  d->m[1] = MD5_INIT1;
-  d->m[2] = MD5_INIT2;
-  d->m[3] = MD5_INIT3;
-  d->nx = 0;
-  d->len = 0;
-  return d;
+static void SetAlgo(char *name, t_func *f, uint8_t m_size) {
+  t_digest *dig = Get_digest(NULL);
+  AddAlgo(&(dig->algo), name, f, m_size);
+}
+
+static void Reset_algo() {
+  t_digest *dig = Get_digest(NULL);
+  t_algo *algo = dig->algo_run;
+  ft_bzero(dig->m, BLOCKSIZE);
+  ft_bzero(dig->hash, HASHSIZE);
+  ft_bzero(dig->digest_hash, BLOCKSIZE);
+  for (int i = 0; i < algo->m_size; i++) {
+    dig->m[i] = algo->func->Get_Init()[i];
+  }
+  dig->nx = 0;
+  dig->len = 0;
+  dig->lenbits = 0;
+}
+
+static t_algo *get_algo(char *algo) {
+  t_algo *a = Get_digest(NULL)->algo;
+  while (a) {
+    if (!ft_strcmp(algo, a->name))
+      return a;
+    a = a->next;
+  }
+  return NULL;
+}
+
+static void Run(t_flag *flag) {
+  t_input *tmp = flag->head;
+  t_digest *dig = Get_digest(NULL);
+  dig->algo_run = get_algo(flag->algo);
+  t_algo *algo = dig->algo_run;
+
+  if (!dig->algo_run) {
+    ft_dprintf(2, "Error: Invalid algorithm\n");
+    return;
+  }
+
+  dig->Reset();
+  if ((flag->flag & FLAG_P || tmp == NULL) && CheckStdin()) {
+    ft_readline("/dev/stdin", algo->func->Write);
+    Display_hash(flag->flag, algo->name, algo->func->Print, 0, "stdin");
+  }
+  while (tmp) {
+    char *input = tmp->input;
+    int is_file = 0;
+    dig->Reset();
+    // printf("input: %s\n", input);
+    // printf("algo: %s\n", algo->name);
+    // printf("algo->m_size: %d\n", algo->m_size);
+    // printf("tmp->type: %d\n", tmp->type);
+    // printf("flag->flag: %d\n", flag->flag);
+    if (tmp->type == TYPE_ERR_FILE) {
+      PrintError(tmp->type, tmp->filename, algo->name);
+    } else if (tmp->type == TYPE_ERR_STRING) {
+      PrintError(tmp->type, input, dig->algo_run->name);
+    }
+    if (tmp->type == TYPE_STDIN || tmp->type == TYPE_STRING) {
+      algo->func->Write((byte *)input);
+    } else if (tmp->type == TYPE_FILE) {
+      ft_readline(tmp->filename, algo->func->Write);
+      input = tmp->filename;
+      is_file = 1;
+    }
+    Display_hash(flag->flag, algo->name, algo->func->Print, is_file, input);
+    tmp = tmp->next;
+  }
+}
+
+t_digest *Init_digest() {
+  t_digest *dig;
+
+  dig = malloc(sizeof(t_digest));
+  if (!dig) {
+    return NULL;
+  }
+  ft_bzero(dig, sizeof(t_digest));
+  Get_digest(dig);
+  dig->AddAlgo = &SetAlgo;
+  dig->Reset = &Reset_algo;
+  dig->Run = &Run;
+  dig->Free = &Free;
+  return dig;
 }

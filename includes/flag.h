@@ -1,14 +1,18 @@
 #ifndef FT_FLAG_H
 #define FT_FLAG_H
 
-#include "ft_printf.h"
-#include "utils.h"
+#include <ft_printf.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <utils.h>
 
 typedef int FlagType;
 typedef int FlagCmd;
 typedef int FD;
 typedef char InputType;
+typedef char InputAlgo;
 typedef int TypeInput;
+typedef unsigned int uint;
 
 #define TYPE_ERR_FILE -1
 #define TYPE_ERR_STRING -2
@@ -37,13 +41,13 @@ typedef struct s_input {
 
 typedef struct s_flag {
   FlagType flag;
-  char *cmd;
+  InputAlgo *algo;
   t_input *head;
 } t_flag;
-int parse(t_flag *flag, int ac, char **av, char **hashList);
-t_input *AddInput(t_input **input, char *str, TypeInput type, char *filename);
-void PrintHelp();
+
+int parse(t_flag *flag, int ac, char **av);
+void PrintHelp(char *algo);
+void PrintError(TypeInput type, const char *name, InputAlgo *algo);
 void FreeFlag(t_flag *flag);
-void PrintError(TypeInput type, const char *name, char *cmd);
 
 #endif

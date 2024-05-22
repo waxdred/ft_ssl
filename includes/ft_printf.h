@@ -1,11 +1,9 @@
 #ifndef FT_PRINTF_H
 #define FT_PRINTF_H
-#include "utils.h"
 #include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
+#include <utils.h>
 
-void ft_printf(const char *format, ...);
+void ft_dprintf(int fd, const char *format, ...);
 
 #endif

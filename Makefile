@@ -1,57 +1,52 @@
 
-HEADERS = includes/ft_ssl.h \
-          includes/flag.h    \
-          includes/md5.h    \
-          includes/digest.h    \
-          includes/sha256.h    \
-          includes/ft_printf.h    \
-          includes/utils.h
+SRCS_DIR = srcs
 
-SRCS_DIR = srcs/
+SRCS = digest/digest.c \
+       digest/display.c \
+       error.c \
+       main.c \
+       md5/algo.c \
+       md5/md5.c \
+       md5/table.c \
+       parse.c \
+       utils/ft_printf.c \
+       utils/readline.c \
+       utils/utils.c
 
-
-SRCS = $(SRCS_DIR)error.c \
-       $(SRCS_DIR)utils.c \
-       $(SRCS_DIR)readline.c \
-       $(SRCS_DIR)parse.c \
-       $(SRCS_DIR)digest/digest.c \
-       $(SRCS_DIR)digest/tool.c \
-       $(SRCS_DIR)sha256/sha256.c \
-       $(SRCS_DIR)sha256/output.c \
-       $(SRCS_DIR)sha256/table.c \
-       $(SRCS_DIR)sha256/calcul.c \
-       $(SRCS_DIR)sha256/algo.c \
-       $(SRCS_DIR)md5/input.c \
-       $(SRCS_DIR)md5/md5.c  \
-       $(SRCS_DIR)md5/output.c \
-       $(SRCS_DIR)md5/table.c \
-       $(SRCS_DIR)md5/calcul.c \
-       $(SRCS_DIR)md5/algo.c \
-       $(SRCS_DIR)printf/ft_printf.c \
-       $(SRCS_DIR)ft_ssl.c \
-       $(SRCS_DIR)main.c
-OBJS_DIR = objs
+OBJS_DIR = build
 
 OBJS = $(addprefix $(OBJS_DIR)/,$(subst $(SRCS_DIR),,$(SRCS:.c=.o)))
+
 NAME = ft_ssl
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -MMD -MP -Iincludes
 RM = rm -rf
 
-
-$(OBJS_DIR)/%.o : $(SRCS_DIR)%.c $(HEADERS)
+# Compilation rule for object files
+$(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-all:	${NAME}
+# Include the dependency files
+-include $(OBJ:.o=.d)
 
-$(NAME):	$(OBJS)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+# Default target
+all: $(NAME)
 
+# Link the final executable
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+
+# Clean up object files and dependency files
 clean:
-	@${RM} ${OBJS}
+	@$(RM) $(OBJS_DIR)
+	@$(RM) $(DEPS_DIR)
 
-fclean:
-	@${RM} ${OBJS} ${NAME}
+# Clean up object files, dependency files, and the executable
+fclean: clean
+	@$(RM) $(NAME)
 
+# Rebuild everything
 re: fclean all
+
+.PHONY: all clean fclean re

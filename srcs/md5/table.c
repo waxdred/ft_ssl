@@ -1,4 +1,4 @@
-#include "../../includes/md5.h"
+#include "md5.h"
 
 uint32_t *get_md5_R() {
   static uint32_t r[64] = {7,  12, 17, 22, 7,  12, 17, 22, 7,  12, 17, 22, 7,
@@ -25,7 +25,7 @@ uint32_t *get_md5_K() {
   return k;
 }
 
-uint32_t *get_md5_S() {
+uint32_t *get_md5_Init() {
   static uint32_t s[4] = {MD5_INIT0, MD5_INIT1, MD5_INIT2, MD5_INIT3};
   return s;
 }

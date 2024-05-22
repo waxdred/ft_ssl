@@ -1,27 +1,34 @@
-#include "../includes/ft_ssl.h"
+#include "flag.h"
+#include <digest.h>
+#include <md5.h>
 
 int main(int argc, char **argv) {
-  t_ssl *ssl = New_ssl();
   t_flag flag = {0};
+  t_func f = {0};
+  t_digest *dig = Init_digest();
 
-  if (ssl == NULL) {
+  if (!dig) {
+    ft_dprintf(2, "malloc error\n");
     return (1);
   }
 
+  // Init algo to digest
+  f = ft_NewMD5();
+  dig->AddAlgo("md5", &f, 4);
+
   if (argc < 2) {
-    ft_printf("usage: ft_ssl command [flags] [file/string]");
+    ft_dprintf(2, "usage: ft_ssl command [flags] [file/string]");
+    dig->Free();
     return (1);
   }
 
   if (parse(&flag, argc, argv)) {
+    dig->Free();
     return (1);
   }
-
-  if (Init_ssl(flag)) {
-    return (1);
-  }
-  ssl->Run();
-  ssl->Free();
+  dig->Run(&flag);
   FreeFlag(&flag);
+  dig->Free();
+
   return (0);
 }

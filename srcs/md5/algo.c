@@ -1,8 +1,10 @@
-#include "../../includes/md5.h"
+#include "md5.h"
 
 void md5_transform(const byte data[]) {
   t_digest *dig = Get_digest(NULL);
   uint32_t a, b, c, d, m[16], i, j;
+  uint32_t *r = get_md5_R();
+  uint32_t *k = get_md5_K();
 
   // convert the 64-byte data array into 16 32-bit words
   for (i = 0, j = 0; i < 16; ++i, j += 4)
@@ -16,17 +18,27 @@ void md5_transform(const byte data[]) {
   d = dig->m[3];
 
   i = 0;
-  // round using the md5_round functions and table
-  for (i = 0; i < BLOCKSIZE; i++) {
+  for (i = 0; i < 64; ++i) {
+    uint32_t f, g;
     if (i < 16) {
-      md5_round_ff(a, b, c, d, m[0], dig->Get_R()[i], dig->Get_K()[i]);
+      f = (b & c) | (~b & d);
+      g = i;
     } else if (i < 32) {
-      md5_round_gg(a, b, c, d, m[0], dig->Get_R()[i], dig->Get_K()[i]);
+      f = (d & b) | (~d & c);
+      g = (5 * i + 1) % 16;
     } else if (i < 48) {
-      md5_round_hh(a, b, c, d, m[0], dig->Get_R()[i], dig->Get_K()[i]);
+      f = b ^ c ^ d;
+      g = (3 * i + 5) % 16;
     } else {
-      md5_round_ii(a, b, c, d, m[0], dig->Get_R()[i], dig->Get_K()[i]);
+      f = c ^ (b | ~d);
+      g = (7 * i) % 16;
     }
+    uint32_t temp = d;
+    d = c;
+    c = b;
+    b = b +
+        ((a + f + k[i] + m[g]) << r[i] | (a + f + k[i] + m[g]) >> (32 - r[i]));
+    a = temp;
   }
 
   // add this block's hash to the result so far
@@ -91,6 +103,6 @@ void PrintSumMd5() {
   t_digest *d = Get_digest(NULL);
   md5_digest();
   for (int i = 0; i < 16; i++) {
-    ft_printf("%02x", d->hash[i]);
+    ft_dprintf(1, "%02x", d->hash[i]);
   }
 }

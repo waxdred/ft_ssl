@@ -1,17 +1,13 @@
 #ifndef DIGEST_H
 #define DIGEST_H
-#include "./flag.h"
-#include "./ft_printf.h"
-#include "utils.h"
+#include <flag.h>
+#include <ft_printf.h>
 #include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
+#include <utils.h>
 
 #define byte uint8_t
 
-// The blocksize of MD5 in bytes.
 #define DIGESTSIZE 16
 #define DIGESTSIZESHA 64
 #define BLOCKSIZE 64
@@ -19,6 +15,20 @@
 #define BUF_SIZE 512
 
 typedef unsigned int uint32_t;
+
+typedef struct s_func {
+  void (*Print)();
+  void (*Write)(byte *f);
+  uint32_t *(*Get_Init)();
+} t_func;
+
+typedef struct s_algo {
+  char *name;
+  t_func *func;
+  uint8_t m_size;
+
+  struct s_algo *next;
+} t_algo;
 
 typedef struct s_digest {
   uint32_t m[BLOCKSIZE];
@@ -29,26 +39,21 @@ typedef struct s_digest {
   uint64_t len;
   byte hash[HASHSIZE];
 
+  t_algo *algo;
+  t_algo *algo_run;
+
   // INTERFACE
-  struct s_digest *(*Reset)();
-  uint32_t *(*Get_K)();
-  uint32_t *(*Get_R)();
-  uint32_t *(*Get_S)();
-  void (*Print)();
-  void (*SetGet_RK)(uint32_t *(*Get_R)(), uint32_t *(*Get_K)());
-  void (*Write)(byte *f);
-  void (*digest)(size_t new_length, uint8_t *padded_message);
+  void (*Reset)();
+  void (*AddAlgo)(char *name, t_func *f, uint8_t m_size);
+  void (*Run)(t_flag *flag);
+  void (*Free)();
 } t_digest;
 
-void PrintSha256();
-static char hex[2][6];
-void Write_sha256(byte *data);
+t_digest *NewDigest();
+t_digest *Init_digest();
+// add a new algo to the list t_algo
 t_digest *Get_digest(t_digest *d);
-t_digest *Reset_digest_sha256();
-t_digest *Reset_digest_md5();
-void Print_Digest(int reverse, TypeInput t, const char *str, void());
-t_digest *Init_digest(FlagCmd cmd);
-void Print_Digest(int reverse, TypeInput t, const char *str, void (*Print)());
-void PrintSumMd5();
+void Display_hash(FlagType flag, char *NameHash, void (*Print)(), int is_file,
+                  char *input);
 
 #endif
