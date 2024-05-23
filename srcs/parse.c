@@ -70,13 +70,15 @@ int parse(t_flag *flag, int ac, char **av) {
   i++;
   while (i < ac) {
     if (done == 1) {
-      if ((fd = OpenFile(av[i])) != -1) {
-        AddInput(&flag->head, ft_strdup(""), TYPE_FILE, av[i]);
-      } else {
-        AddInput(&flag->head, ft_strdup(""), TYPE_ERR_FILE, av[i]);
+      while (i < ac) {
+        if ((fd = OpenFile(av[i])) != -1) {
+          AddInput(&flag->head, ft_strdup(""), TYPE_FILE, av[i]);
+        } else {
+          AddInput(&flag->head, ft_strdup(""), TYPE_ERR_FILE, av[i]);
+        }
+        i++;
       }
-      i++;
-      continue;
+      break;
     }
     ft_getopt(av[i], "hpqrs?", &opt);
     if (opt == -1) {

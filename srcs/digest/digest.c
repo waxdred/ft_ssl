@@ -79,22 +79,24 @@ static void Run(t_flag *flag) {
   t_algo *algo = dig->algo_run;
 
   if (!dig->algo_run) {
-    ft_dprintf(2, "Error: Invalid algorithm\n");
+    ft_dprintf(2, "ft_ssl: Error: '%s' is an invalid command.\n", flag->algo);
     return;
   }
 
   dig->Reset();
   if ((flag->flag & FLAG_P || tmp == NULL)) {
-    char *input = flag->flag & FLAG_P ? "need add string input" : "stdin";
+    char *input = "stdin";
     char *inputRead = NULL;
     inputRead = ft_readline("/dev/stdin", algo->func->Write, 1);
-    if (inputRead == NULL) {
-      return;
-    }
-    Display_hash(flag->flag, algo->name, algo->func->Print, 0,
-                 flag->flag & FLAG_P ? inputRead : input);
     if (inputRead != NULL) {
-      free(inputRead);
+      Display_hash(flag->flag, 0, algo->name, algo->func->Print, 0,
+                   flag->flag & FLAG_P ? inputRead : input);
+      if (inputRead != NULL) {
+        free(inputRead);
+      }
+    } else {
+      Display_hash(flag->flag, 0, algo->name, algo->func->Print, 0,
+                   flag->flag & FLAG_P ? "" : input);
     }
   }
   while (tmp) {
@@ -117,7 +119,9 @@ static void Run(t_flag *flag) {
       input = tmp->filename;
       is_file = 1;
     }
-    Display_hash(flag->flag, algo->name, algo->func->Print, is_file, input);
+
+    Display_hash(flag->flag, tmp->type, algo->name, algo->func->Print, is_file,
+                 input);
     tmp = tmp->next;
   }
 }

@@ -53,7 +53,7 @@ t_digest *NewDigest();
 t_digest *Init_digest();
 // add a new algo to the list t_algo
 t_digest *Get_digest(t_digest *d);
-void Display_hash(FlagType flag, char *NameHash, void (*Print)(), int is_file,
-                  char *input);
+void Display_hash(FlagType flag, FlagType type, char *NameHash, void (*Print)(),
+                  int is_file, char *input);
 
 #endif
