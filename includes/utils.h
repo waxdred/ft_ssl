@@ -18,6 +18,6 @@ void *ft_memset(void *b, int c, size_t len);
 char *ft_readline(char *file, void (*Write)(unsigned char *f), int retStr);
 int CheckStdin();
 char *ft_strtoupper(char *str);
-char *ft_strjoint(char *s1, char *s2);
+void *ft_realloc(void *ptr, size_t size);
 
 #endif

@@ -5,7 +5,7 @@
 
 COLOR_NORM		=	\033[0m
 COLOR_RED			=	\033[31m
-COLOR_PURPLE	=	\033[35m
+COLOR_BLUE	=	\033[36m
 
 ################################################################################
 ##                               SRCS                                         ##
@@ -27,6 +27,7 @@ SRCS = digest/digest.c \
        utils/ft_printf.c \
        utils/readline.c \
        utils/utils.c
+
 OBJS_DIR = build
 OBJS = $(addprefix $(OBJS_DIR)/,$(subst $(SRCS_DIR),,$(SRCS:.c=.o)))
 
@@ -47,9 +48,10 @@ define print_progress
 	$(eval i = $(shell expr $(i) + 1))
 	$(eval PERCENT = $(shell expr $(i) '*' 100 '/' $(NUM_OBJS)))
 	@if [ $(i) -eq 1 ]; then \
-        printf "$(COLOR_PURPLE)Starting compilation...\n$(COLOR_NORM)"; \
+        printf "$(COLOR_BLUE)Starting compilation...\n$(COLOR_NORM)"; \
   fi
-	@printf "\r\033[K\t$(COLOR_PURPLE)[$(PERCENT)%%]\t--> $(COLOR_NORM)$<\$(COLOR_NORM)"
+	@printf "\r\033[K\t$(COLOR_BLUE)[$(PERCENT)%%]\t--> $(COLOR_NORM)$<\$(COLOR_NORM)"
+	@printf "\r\033[K\t$(COLOR_BLUE)[$(PERCENT)%%]\t--> $(COLOR_NORM)$<\$(COLOR_NORM)"
 endef
 
 # Compilation rule for object files

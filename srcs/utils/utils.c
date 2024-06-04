@@ -36,6 +36,10 @@ void *ft_memcpy(void *dst, const void *src, size_t n) {
 
   pdst = (unsigned char *)dst;
   psrc = (unsigned char *)src;
+  if (sizeof(dst) < n)
+    return (NULL);
+  if (pdst == psrc || n == 0)
+    return (dst);
   while (n > 0) {
     *pdst++ = *psrc++;
     n--;
@@ -97,21 +101,6 @@ int ft_strcmp(const char *s1, const char *s2) {
   return (unsigned char)*s1 - (unsigned char)*s2;
 }
 
-int CheckStdin() {
-  int ret = 0;
-  char buffer[1];
-  int flags = fcntl(STDIN_FILENO, F_GETFL);
-  fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK);
-
-  int bytes_read = read(STDIN_FILENO, buffer, 1);
-  if (bytes_read > 0) {
-    ret = 1;
-  }
-
-  fcntl(STDIN_FILENO, F_SETFL, flags); // restore original flags
-  return ret;
-}
-
 int OpenFile(const char *filename) {
   int fd;
   char *tmp;
@@ -138,27 +127,27 @@ char *ft_strdup(const char *s) {
   return str;
 }
 
-char *ft_strjoint(char *s1, char *s2) {
-  char *str;
-  size_t len1;
-  size_t len2;
-  size_t i;
-  size_t j;
-  len1 = ft_strlen(s1);
-  len2 = ft_strlen(s2);
-  str = (char *)malloc(len1 + len2 + 1);
-  if (str == NULL)
+void *ft_realloc(void *ptr, size_t new_size) {
+  if (!ptr) {
+    return malloc(new_size);
+  }
+
+  if (new_size == 0) {
+    free(ptr);
     return NULL;
-  i = 0;
-  while (i < len1) {
-    str[i] = s1[i];
-    i++;
   }
-  j = 0;
-  while (j < len2) {
-    str[i + j] = s2[j];
-    j++;
+  size_t old_size = *((size_t *)ptr - 1);
+
+  if (new_size <= old_size) {
+    return ptr;
   }
-  str[i + j] = '\0';
-  return str;
+  void *new_ptr = malloc(new_size);
+
+  if (!new_ptr) {
+    return ptr;
+  }
+  ft_memcpy(new_ptr, ptr, old_size);
+  free(ptr);
+
+  return new_ptr;
 }
