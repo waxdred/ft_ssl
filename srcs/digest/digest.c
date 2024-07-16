@@ -91,9 +91,7 @@ static void Run(t_flag *flag) {
     if (inputRead != NULL) {
       Display_hash(flag->flag, 0, algo->name, algo->func->Print, 0,
                    flag->flag & FLAG_P ? inputRead : input);
-      if (inputRead != NULL) {
-        free(inputRead);
-      }
+      free(inputRead);
     } else {
       Display_hash(flag->flag, 0, algo->name, algo->func->Print, 0,
                    flag->flag & FLAG_P ? "" : input);

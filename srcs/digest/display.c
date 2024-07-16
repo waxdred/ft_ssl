@@ -7,10 +7,6 @@ void Display_hash(FlagType flag, FlagType type, char *NameHash, void (*Print)(),
   char *upper = ft_strdup(NameHash);
 
   upper = ft_strtoupper(upper);
-  rewind(stdin);
-
-  // printf("Display_hash flag: %d\n", flag);
-  // printf("TODO in fix input flag with generic flag and type flag");
   if (flag & FLAG_Q) {
     if (flag & FLAG_R) {
       Print();
@@ -19,11 +15,16 @@ void Display_hash(FlagType flag, FlagType type, char *NameHash, void (*Print)(),
     }
   } else {
     if (flag & FLAG_R) {
-      Print();
       if (flag & FLAG_S) {
+        Print();
         ft_dprintf(1, " \"%s\"", input);
       } else if (is_file) {
+        Print();
         ft_dprintf(1, " %s", input);
+      } else {
+        printf(" %s\n", input);
+        ft_dprintf(1, "(\"%s\") ", input);
+        Print();
       }
     } else {
       if (flag & FLAG_S) {

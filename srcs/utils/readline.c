@@ -18,7 +18,6 @@ char *ft_readline(char *file, void (*Write)(unsigned char *f, size_t len),
     }
     ft_bzero(chunk, 512);
     while ((ret = read(fd, chunk, 64)) > 0) {
-      //  printf("%s", chunk);
       if (retStr == 1) {
         char *new_buffer = ft_realloc(buf, len, len + ret + 1);
         if (new_buffer == NULL) {

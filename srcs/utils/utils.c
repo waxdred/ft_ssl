@@ -37,10 +37,6 @@ void *ft_memcpy(void *dst, const void *src, size_t n) {
 
   pdst = (unsigned char *)dst;
   psrc = (unsigned char *)src;
-  if (sizeof(dst) < n)
-    return (NULL);
-  if (pdst == psrc || n == 0)
-    return (dst);
   while (n > 0) {
     *pdst++ = *psrc++;
     n--;
