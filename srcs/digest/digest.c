@@ -113,7 +113,7 @@ static void Run(t_flag *flag) {
       continue;
     }
     if (tmp->type == TYPE_STDIN || tmp->type == TYPE_STRING) {
-      algo->func->Write((byte *)input);
+      algo->func->Write((byte *)input, ft_strlen(input));
     } else if (tmp->type == TYPE_FILE) {
       ft_readline(tmp->filename, algo->func->Write, 0);
       input = tmp->filename;

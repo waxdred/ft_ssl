@@ -30,6 +30,7 @@ void *ft_memset(void *b, int c, size_t len) {
     pb[i++] = (unsigned char)c;
   return (b);
 }
+
 void *ft_memcpy(void *dst, const void *src, size_t n) {
   unsigned char *pdst;
   unsigned char *psrc;
@@ -103,15 +104,10 @@ int ft_strcmp(const char *s1, const char *s2) {
 
 int OpenFile(const char *filename) {
   int fd;
-  char *tmp;
 
-  fd = open(filename, O_RDONLY | O_NONBLOCK);
-  tmp = NULL;
+  fd = open(filename, O_RDONLY);
   if (fd == -1)
     return (-1);
-  if (read(fd, tmp, 0) == -1) {
-    return (-1);
-  }
   return (fd);
 }
 
@@ -127,7 +123,7 @@ char *ft_strdup(const char *s) {
   return str;
 }
 
-void *ft_realloc(void *ptr, size_t new_size) {
+void *ft_realloc(void *ptr, size_t old_size, size_t new_size) {
   if (!ptr) {
     return malloc(new_size);
   }
@@ -136,17 +132,14 @@ void *ft_realloc(void *ptr, size_t new_size) {
     free(ptr);
     return NULL;
   }
-  size_t old_size = *((size_t *)ptr - 1);
+  size_t copy_size = old_size < new_size ? old_size : new_size;
 
-  if (new_size <= old_size) {
-    return ptr;
-  }
   void *new_ptr = malloc(new_size);
 
   if (!new_ptr) {
     return ptr;
   }
-  ft_memcpy(new_ptr, ptr, old_size);
+  ft_memcpy(new_ptr, ptr, copy_size);
   free(ptr);
 
   return new_ptr;

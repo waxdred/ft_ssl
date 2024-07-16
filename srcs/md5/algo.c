@@ -48,9 +48,8 @@ void md5_transform(const byte data[]) {
   dig->m[3] += d;
 }
 
-void Write_md5(byte *p) {
+void Write_md5(byte *p, size_t len) {
   t_digest *dig = Get_digest(NULL);
-  size_t len = ft_strlen((char *)(p));
   size_t i;
   if (p == NULL)
     return;

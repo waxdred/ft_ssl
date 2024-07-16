@@ -43,10 +43,9 @@ void sha256_transform(const byte data[]) {
   dig->m[7] += h;
 }
 
-void Write_sha256(byte *p) {
+void Write_sha256(byte *p, size_t len) {
   t_digest *dig = Get_digest(NULL);
   uint32_t i;
-  size_t len = ft_strlen((char *)(p));
 
   for (i = 0; i < len; ++i) {
     dig->digest_hash[dig->len] = p[i];

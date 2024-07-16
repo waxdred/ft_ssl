@@ -23,7 +23,7 @@ typedef unsigned char uint8_t;
 t_func ft_NewMD5();
 
 void PrintSum();
-void Write_md5(byte *p);
+void Write_md5(byte *p, size_t len);
 void PrintSumMd5();
 
 // Table of functions

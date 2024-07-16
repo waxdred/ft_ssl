@@ -15,9 +15,10 @@ char *ft_strdup(const char *s);
 int OpenFile(const char *filename);
 char *ft_trimLastWhiteSpace(char *str);
 void *ft_memset(void *b, int c, size_t len);
-char *ft_readline(char *file, void (*Write)(unsigned char *f), int retStr);
+char *ft_readline(char *file, void (*Write)(unsigned char *f, size_t len),
+                  int retStr);
 int CheckStdin();
 char *ft_strtoupper(char *str);
-void *ft_realloc(void *ptr, size_t size);
+void *ft_realloc(void *ptr, size_t old_size, size_t new_size);
 
 #endif

@@ -28,7 +28,7 @@ t_func ft_NewSHA256();
 
 // interface for digest
 void PrintSum();
-void Write_sha256(byte *p);
+void Write_sha256(byte *p, size_t len);
 void PrintSumSha256();
 
 // Table of functions

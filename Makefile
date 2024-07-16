@@ -33,7 +33,7 @@ OBJS = $(addprefix $(OBJS_DIR)/,$(subst $(SRCS_DIR),,$(SRCS:.c=.o)))
 
 NAME = ft_ssl
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3 -MMD -MP -Iincludes
+CFLAGS = -Wall -Wextra -Werror -g3 -MMD -MP -Iincludes #-fsanitize=address
 RM = rm -rf
 
 # Set the number of object files 

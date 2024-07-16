@@ -18,7 +18,7 @@ typedef unsigned int uint32_t;
 
 typedef struct s_func {
   void (*Print)();
-  void (*Write)(byte *f);
+  void (*Write)(byte *f, size_t len);
   uint32_t *(*Get_Init)();
 } t_func;
 
