@@ -1,0 +1,287 @@
+[
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/digest/digest.o",
+      "srcs/digest/digest.c"
+    ],
+    "directory": "/home/wax/code/ft_ssl",
+    "file": "/home/wax/code/ft_ssl/srcs/digest/digest.c",
+    "output": "/home/wax/code/ft_ssl/build/digest.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/digest/display.o",
+      "srcs/digest/display.c"
+    ],
+    "directory": "/home/wax/code/ft_ssl",
+    "file": "/home/wax/code/ft_ssl/srcs/digest/display.c",
+    "output": "/home/wax/code/ft_ssl/build/display.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/error.o",
+      "srcs/error.c"
+    ],
+    "directory": "/home/wax/code/ft_ssl",
+    "file": "/home/wax/code/ft_ssl/srcs/error.c",
+    "output": "/home/wax/code/ft_ssl/build/error.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/main.o",
+      "srcs/main.c"
+    ],
+    "directory": "/home/wax/code/ft_ssl",
+    "file": "/home/wax/code/ft_ssl/srcs/main.c",
+    "output": "/home/wax/code/ft_ssl/build/main.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/md5/algo.o",
+      "srcs/md5/algo.c"
+    ],
+    "directory": "/home/wax/code/ft_ssl",
+    "file": "/home/wax/code/ft_ssl/srcs/md5/algo.c",
+    "output": "/home/wax/code/ft_ssl/build/algo.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/md5/md5.o",
+      "srcs/md5/md5.c"
+    ],
+    "directory": "/home/wax/code/ft_ssl",
+    "file": "/home/wax/code/ft_ssl/srcs/md5/md5.c",
+    "output": "/home/wax/code/ft_ssl/build/md5.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/md5/table.o",
+      "srcs/md5/table.c"
+    ],
+    "directory": "/home/wax/code/ft_ssl",
+    "file": "/home/wax/code/ft_ssl/srcs/md5/table.c",
+    "output": "/home/wax/code/ft_ssl/build/table.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/parse.o",
+      "srcs/parse.c"
+    ],
+    "directory": "/home/wax/code/ft_ssl",
+    "file": "/home/wax/code/ft_ssl/srcs/parse.c",
+    "output": "/home/wax/code/ft_ssl/build/parse.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/sha256/algo.o",
+      "srcs/sha256/algo.c"
+    ],
+    "directory": "/home/wax/code/ft_ssl",
+    "file": "/home/wax/code/ft_ssl/srcs/sha256/algo.c",
+    "output": "/home/wax/code/ft_ssl/build/algo.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/sha256/math.o",
+      "srcs/sha256/math.c"
+    ],
+    "directory": "/home/wax/code/ft_ssl",
+    "file": "/home/wax/code/ft_ssl/srcs/sha256/math.c",
+    "output": "/home/wax/code/ft_ssl/build/math.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/sha256/sha256.o",
+      "srcs/sha256/sha256.c"
+    ],
+    "directory": "/home/wax/code/ft_ssl",
+    "file": "/home/wax/code/ft_ssl/srcs/sha256/sha256.c",
+    "output": "/home/wax/code/ft_ssl/build/sha256.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/sha256/table.o",
+      "srcs/sha256/table.c"
+    ],
+    "directory": "/home/wax/code/ft_ssl",
+    "file": "/home/wax/code/ft_ssl/srcs/sha256/table.c",
+    "output": "/home/wax/code/ft_ssl/build/table.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/utils/ft_printf.o",
+      "srcs/utils/ft_printf.c"
+    ],
+    "directory": "/home/wax/code/ft_ssl",
+    "file": "/home/wax/code/ft_ssl/srcs/utils/ft_printf.c",
+    "output": "/home/wax/code/ft_ssl/build/ft_printf.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/utils/readline.o",
+      "srcs/utils/readline.c"
+    ],
+    "directory": "/home/wax/code/ft_ssl",
+    "file": "/home/wax/code/ft_ssl/srcs/utils/readline.c",
+    "output": "/home/wax/code/ft_ssl/build/readline.o"
+  },
+  {
+    "arguments": [
+      "gcc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g3",
+      "-MMD",
+      "-MP",
+      "-Iincludes",
+      "-c",
+      "-o",
+      "build/utils/utils.o",
+      "srcs/utils/utils.c"
+    ],
+    "directory": "/home/wax/code/ft_ssl",
+    "file": "/home/wax/code/ft_ssl/srcs/utils/utils.c",
+    "output": "/home/wax/code/ft_ssl/build/utils.o"
+  }
+]
