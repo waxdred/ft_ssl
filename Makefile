@@ -10,7 +10,7 @@ COLOR_BLUE	=	\033[36m
 ################################################################################
 ##                               SRCS                                         ##
 ################################################################################
-
+CACHE = .cache
 SRCS_DIR = srcs
 SRCS = digest/digest.c \
        digest/display.c \
@@ -75,6 +75,7 @@ $(NAME): $(OBJS)
 clean:
 	@$(RM) $(OBJS_DIR)
 	@$(RM) $(DEPS_DIR)
+	@$(RM) $(CACHE)
 
 # Clean up object files, dependency files, and the executable
 fclean: clean
