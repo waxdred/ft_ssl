@@ -79,7 +79,7 @@ void sha256_digest() {
 
   dig->lenbits += dig->len * 8;
   for (i = 0; i < 8; ++i) {
-    dig->digest_hash[63 + i] = dig->lenbits >> (i * 8);
+    dig->digest_hash[56 + i] = dig->lenbits >> (56 - (i * 8));
   }
   sha256_transform(dig->digest_hash);
 
